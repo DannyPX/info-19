@@ -1,15 +1,21 @@
 <template>
   <nav>
     <div class="items">
-      <router-link class="link" to="/map">
-        <map-icon size="1.5x"></map-icon>
+      <router-link class="link" :to="map ? '/map' : '/'">
+        <map-icon size="1.5x" v-if="map"></map-icon>
+        <img class="back" src="/img/svg/back.svg" v-if="!map" />
       </router-link>
       <span>{{ title }}</span>
-      <router-link class="link" to="/settings">
+      <settings-icon
+        v-if="!settings"
+        class="placeholder"
+        size="1.5x"
+      ></settings-icon>
+      <router-link v-if="settings" class="link" to="/settings">
         <settings-icon size="1.5x"></settings-icon>
       </router-link>
     </div>
-    <select name="municipality">
+    <select name="municipality" v-if="dropdown">
       <option value="null">Choose a municipality</option>
       <option value="ams">Amsterdam</option>
       <option value="rot">Rotterdam</option>
@@ -24,6 +30,9 @@ export default {
   name: "Bigtopbar",
   props: {
     title: String,
+    map: Boolean,
+    settings: Boolean,
+    dropdown: Boolean,
   },
   components: {
     MapIcon,
@@ -52,6 +61,14 @@ nav {
 .items span {
   font-size: 1.3rem;
   font-weight: 300;
+}
+
+.back {
+  margin-right: 12px;
+}
+
+.placeholder {
+  opacity: 0;
 }
 
 select {

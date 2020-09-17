@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Bigtopbar title="INFO-19"></Bigtopbar>
+    <Topbar
+      title="INFO-19"
+      :map="true"
+      :settings="true"
+      :dropdown="true"
+    ></Topbar>
     <Section1 :top="165">
       <Statistics
         date="17/09"
@@ -19,7 +24,7 @@
 </template>
 
 <script>
-import Bigtopbar from "@/components/nav/Bigtopbar.vue";
+import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
@@ -28,7 +33,7 @@ import Graph from "@/components/home/Graph.vue";
 export default {
   name: "Home",
   components: {
-    Bigtopbar,
+    Topbar,
     Section1,
     Statistics,
     Section2,
