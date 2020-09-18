@@ -16,7 +16,7 @@
         <toggle-button
           v-if="!darkToggle"
           :value="toggle"
-          :color="{ checked: '#EC1F27', unchecked: '#E6E6E6' }"
+          :color="{ checked: 'var(--red)', unchecked: 'var(--toggle)' }"
           :width="45"
           :margin="2"
         />
@@ -71,6 +71,7 @@ export default {
 }
 
 .header {
+  color: var(--text);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -84,11 +85,11 @@ export default {
 
 .d-thick {
   margin-top: 3px;
-  border-bottom: 2px solid #000000;
+  border-bottom: 2px solid var(--text);
 }
 
 .d-thin {
-  border-bottom: 1px solid #a6a6a6;
+  border-bottom: 1px solid var(--thinLine);
 }
 
 .slide {
@@ -97,11 +98,11 @@ export default {
   justify-content: space-between;
   margin: 10px 0;
   font-size: 1.05rem;
-  color: #808080;
+  color: var(--slide);
 }
 
 .location {
-  color: #000000;
+  color: var(--text);
   font-weight: 500;
 }
 </style>

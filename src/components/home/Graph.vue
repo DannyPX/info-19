@@ -22,6 +22,7 @@ export default {
 }
 
 .title {
+  color: var(--text);
   font-weight: 500;
   font-size: 1.05rem;
 }
@@ -29,7 +30,7 @@ export default {
 .filter {
   width: 100%;
   margin-top: 10px;
-  background: #ffffff;
+  background: var(--filter);
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   display: flex;
@@ -37,15 +38,15 @@ export default {
 }
 
 .filter span {
-  color: #000000;
+  color: var(--text);
   padding: 10px 20px;
   border-radius: 12px;
   font-size: clamp(0.95rem, 3vw, 1.4rem);
 }
 
 .filter span.active {
-  background: #ec1f27;
-  color: #ffffff;
+  background: var(--red);
+  color: var(--white);
 }
 
 @media only screen and (max-width: 350px) {

@@ -17,7 +17,7 @@ export default {
 #section2 {
   height: calc(100vh - 318px);
   width: 100%;
-  background: #f2f2f2;
+  background: var(--section2);
   border-radius: 30px 30px 0 0;
   box-sizing: border-box;
   padding: 20px;

@@ -53,11 +53,13 @@ export default {
 }
 
 .header .title {
+  color: var(--text);
   font-weight: 500;
   font-size: 1.05rem;
 }
 
 .header .date {
+  color: var(--text);
   font-size: 0.9rem;
 }
 
@@ -70,7 +72,7 @@ export default {
 
 .wrap .box {
   position: relative;
-  background: #ffffff;
+  background: var(--statBox);
   padding: 15px;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -81,7 +83,7 @@ export default {
 
 .box .change {
   position: absolute;
-  color: #ec1f27;
+  color: var(--red);
   top: 0;
   right: 0;
   margin: 2px 6px;
@@ -89,13 +91,13 @@ export default {
 }
 
 .box .number {
-  color: #ec1f27;
+  color: var(--red);
   font-weight: 500;
   font-size: clamp(1.7rem, 8vw, 3rem);
 }
 
 .box .type {
-  color: #000000;
+  color: var(--text);
   font-size: clamp(0.95rem, 3vw, 1.4rem);
 }
 </style>

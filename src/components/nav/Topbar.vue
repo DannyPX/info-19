@@ -45,8 +45,7 @@ export default {
 nav {
   width: 100%;
   height: 200px;
-  background: #ec1f27;
-  color: #ffffff;
+  background: var(--red);
   display: flex;
   flex-flow: column nowrap;
 }
@@ -59,6 +58,7 @@ nav {
 }
 
 .items span {
+  color: var(--white);
   font-size: 1.3rem;
   font-weight: 300;
 }
@@ -72,7 +72,8 @@ nav {
 }
 
 select {
-  background: #ffffff;
+  background: var(--dropdown);
+  color: var(--text);
   margin: 20px;
   font-size: 1.05rem;
   font-family: "Signika";

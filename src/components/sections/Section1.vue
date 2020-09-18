@@ -20,7 +20,7 @@ export default {
 #section1 {
   position: absolute;
   width: 100%;
-  background: #ffffff;
+  background: var(--section1);
   border-radius: 30px 30px 0 0;
   box-sizing: border-box;
 }
