@@ -23,6 +23,7 @@
         option="Dark mode"
         :darkToggle="true"
       ></Block>
+      <span class="version">Version {{ version }}</span>
     </Section1>
   </div>
 </template>
@@ -34,6 +35,11 @@ import Block from "@/components/settings/Block.vue";
 
 export default {
   name: "Settings",
+  data() {
+    return {
+      version: "0.0.1",
+    };
+  },
   components: {
     Topbar,
     Section1,
@@ -41,3 +47,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.version {
+  color: var(--slide);
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+</style>
