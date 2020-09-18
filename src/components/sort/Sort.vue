@@ -24,6 +24,7 @@ export default {
 .sort {
   display: flex;
   flex-flow: column nowrap;
+  margin-bottom: 10px;
 }
 
 .title {

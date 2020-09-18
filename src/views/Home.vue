@@ -18,6 +18,13 @@
       ></Statistics>
       <Section2>
         <Sort title="Graph"></Sort>
+        <column-chart
+          :data="placeholder"
+          :colors="['rgb(236, 31, 39)']"
+          height="25vh"
+          :min="0"
+          :max="60"
+        ></column-chart>
       </Section2>
     </Section1>
   </div>
@@ -32,6 +39,19 @@ import Sort from "@/components/sort/Sort.vue";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      currentDay: new Date().getDate(),
+      placeholder: [
+        ["13 sept", 8],
+        ["14 sept", 13],
+        ["15 sept", 11],
+        ["16 sept", 17],
+        ["17 sept", 14],
+        ["18 sept", 16],
+      ],
+    };
+  },
   components: {
     Topbar,
     Section1,
