@@ -17,7 +17,7 @@
         :dec_change="18"
       ></Statistics>
       <Section2>
-        <Graph></Graph>
+        <Sort title="Graph"></Sort>
       </Section2>
     </Section1>
   </div>
@@ -28,7 +28,7 @@ import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
-import Graph from "@/components/home/Graph.vue";
+import Sort from "@/components/sort/Sort.vue";
 
 export default {
   name: "Home",
@@ -37,7 +37,7 @@ export default {
     Section1,
     Statistics,
     Section2,
-    Graph,
+    Sort,
   },
 };
 </script>
