@@ -19,6 +19,7 @@
           :color="{ checked: 'var(--red)', unchecked: 'var(--toggle)' }"
           :width="45"
           :margin="2"
+          @click.native="vibrate()"
         />
       </div>
       <div class="d-thin"></div>
@@ -49,6 +50,11 @@ export default {
     currentLocation: String,
     toggle: Boolean,
     darkToggle: Boolean,
+  },
+  methods: {
+    vibrate() {
+      navigator.vibrate(15);
+    },
   },
   components: {
     MapPinIcon,
