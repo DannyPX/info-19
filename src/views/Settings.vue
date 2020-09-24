@@ -22,7 +22,7 @@
         title="Theme"
         option="Dark mode"
         :toggle="checkLocalStorage()"
-        :functionName="toggleTheme"
+        @functionName="toggleTheme"
       ></Block>
       <span class="version">Version {{ version }}</span>
     </Section1>

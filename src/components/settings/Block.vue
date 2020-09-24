@@ -16,7 +16,7 @@
           :width="45"
           :margin="2"
           @click.native="vibrate()"
-          @change="functionName"
+          @change="functionName()"
         />
       </div>
       <div class="d-thin"></div>
@@ -45,11 +45,13 @@ export default {
     option2: String,
     currentLocation: String,
     toggle: Boolean,
-    functionName: Function,
   },
   methods: {
     vibrate() {
       navigator.vibrate(15);
+    },
+    functionName() {
+      this.$emit("functionName");
     },
   },
   components: {
