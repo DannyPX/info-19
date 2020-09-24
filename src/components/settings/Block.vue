@@ -10,16 +10,13 @@
       <div class="d-thick"></div>
       <div class="slide">
         <span>{{ option }}</span>
-        <DarkMode v-if="darkToggle" :modes="['light', 'dark']">
-          Click
-        </DarkMode>
         <toggle-button
-          v-if="!darkToggle"
           :value="toggle"
           :color="{ checked: 'var(--red)', unchecked: 'var(--toggle)' }"
           :width="45"
           :margin="2"
           @click.native="vibrate()"
+          @change="functionName"
         />
       </div>
       <div class="d-thin"></div>
@@ -35,7 +32,6 @@
 <script>
 import { MapPinIcon, BellIcon, LayoutIcon } from "vue-feather-icons";
 import { ToggleButton } from "vue-js-toggle-button";
-import { DarkMode } from "@vue-a11y/dark-mode";
 
 export default {
   name: "Block",
@@ -49,7 +45,7 @@ export default {
     option2: String,
     currentLocation: String,
     toggle: Boolean,
-    darkToggle: Boolean,
+    functionName: Function,
   },
   methods: {
     vibrate() {
@@ -61,7 +57,6 @@ export default {
     BellIcon,
     LayoutIcon,
     ToggleButton,
-    DarkMode,
   },
 };
 </script>

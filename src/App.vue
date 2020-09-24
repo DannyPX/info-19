@@ -2,6 +2,26 @@
   <router-view></router-view>
 </template>
 
+<script>
+export default {
+  methods: {
+    themeCheck() {
+      if (localStorage.getItem("themeColor") == null) {
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? localStorage.setItem("themeColor", "dark-mode")
+          : localStorage.setItem("themeColor", "light-mode");
+      }
+      document
+        .getElementById("main")
+        .classList.add(localStorage.getItem("themeColor"));
+    },
+  },
+  beforeMount() {
+    this.themeCheck();
+  },
+};
+</script>
+
 <style>
 .link {
   color: var(--white);

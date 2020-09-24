@@ -41,7 +41,6 @@ export default {
   name: "Home",
   data() {
     return {
-      currentDay: new Date().getDate(),
       placeholder: [
         ["13 sept", 8],
         ["14 sept", 13],

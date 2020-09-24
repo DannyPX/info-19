@@ -21,7 +21,8 @@
         :theme="true"
         title="Theme"
         option="Dark mode"
-        :darkToggle="true"
+        :toggle="checkLocalStorage()"
+        :functionName="toggleTheme"
       ></Block>
       <span class="version">Version {{ version }}</span>
     </Section1>
@@ -39,6 +40,26 @@ export default {
     return {
       version: "0.0.1",
     };
+  },
+  methods: {
+    checkLocalStorage() {
+      let theme = localStorage.getItem("themeColor");
+      return theme == "dark-mode" ? true : false;
+    },
+    toggleTheme() {
+      const main = document.getElementById("main");
+      let theme = localStorage.getItem("themeColor");
+
+      if (theme == "dark-mode") {
+        main.classList.remove(theme);
+        localStorage.setItem("themeColor", "light-mode");
+        main.classList.add("light-mode");
+      } else {
+        main.classList.remove(theme);
+        localStorage.setItem("themeColor", "dark-mode");
+        main.classList.add("dark-mode");
+      }
+    },
   },
   components: {
     Topbar,
