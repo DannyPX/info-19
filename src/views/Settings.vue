@@ -10,7 +10,7 @@
         @functionName="toggleAutoLocation"
         :slide2="true"
         option2="Manual"
-        currentLocation="Eindhoven"
+        :currentLocation="location"
       ></Block>
       <Block
         :notification="true"
@@ -25,7 +25,6 @@
         :toggle="checkLocalStorage('themeColor', 'dark-mode')"
         @functionName="toggleTheme"
       ></Block>
-      <span>{{ latLng.lat }} - {{ latLng.lng }}</span>
       <span class="version">Version {{ version }}</span>
     </Section1>
   </div>
@@ -35,24 +34,23 @@
 import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Block from "@/components/settings/Block.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "Settings",
   data() {
     return {
+      location: "Choose a location",
       version: "0.0.1",
-      latLng: {
-        lat: null,
-        lng: null,
-      },
     };
   },
   methods: {
+    ...mapActions("location", ["getLocation"]),
     checkLocalStorage(key, value) {
       let locationAuto = localStorage.getItem(key);
       return locationAuto == value ? true : false;
     },
-    async getLocation() {
+    async getLatLng() {
       return new Promise((resolve, reject) => {
         if (!("geolocation" in navigator)) {
           reject(new Error("Geolocation is not available."));
@@ -74,15 +72,22 @@ export default {
 
       if (locationAuto != "on") {
         try {
-          location = await this.getLocation();
+          location = await this.getLatLng();
           localStorage.setItem("locationAuto", "on");
-          this.latLng.lat = location.coords.latitude;
-          this.latLng.lng = location.coords.longitude;
+          localStorage.setItem("latitude", location.coords.latitude.toFixed(6));
+          localStorage.setItem(
+            "longitude",
+            location.coords.longitude.toFixed(6)
+          );
+          this.getLocation();
         } catch (e) {
           console.log(e);
           localStorage.setItem("locationAuto", "off");
         }
       } else {
+        localStorage.removeItem("latitude");
+        localStorage.removeItem("longitude");
+        localStorage.removeItem("municipality");
         localStorage.setItem("locationAuto", "off");
       }
     },
