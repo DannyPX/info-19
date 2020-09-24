@@ -15,7 +15,7 @@
         <settings-icon size="1.5x"></settings-icon>
       </router-link>
     </div>
-    <select name="municipality" v-if="dropdown">
+    <select id="dropdown" name="municipality" v-if="dropdown">
       <option value="null">Choose a municipality</option>
       <option value="ams">Amsterdam</option>
       <option value="rot">Rotterdam</option>
@@ -33,6 +33,12 @@ export default {
     map: Boolean,
     settings: Boolean,
     dropdown: Boolean,
+  },
+  mounted() {
+    let dropdown = document.getElementById("dropdown");
+    localStorage.getItem("themeColor") == "dark-mode"
+      ? (dropdown.style.backgroundImage = 'url("/img/svg/dropdownL.svg")')
+      : (dropdown.style.backgroundImage = 'url("/img/svg/dropdownD.svg")');
   },
   components: {
     MapIcon,
@@ -71,7 +77,7 @@ nav {
   opacity: 0;
 }
 
-select {
+#dropdown {
   background: var(--dropdown);
   color: var(--text);
   margin: 20px;
@@ -83,7 +89,6 @@ select {
   border-radius: 12px;
   border: none;
   outline: none;
-  background-image: url("/img/svg/dropdown.svg");
   background-repeat: no-repeat;
   -webkit-appearance: none;
   -moz-appearance: none;
