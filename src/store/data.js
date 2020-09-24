@@ -17,8 +17,7 @@ export default {
   },
   actions: {
     loadCumulative({ commit }) {
-      // TODO: Change data to localStorage
-      var data = { municipality: 'Helmond'}
+      var data = { municipality: localStorage.getItem('municipality')}
       api
         .post('/covid/cumulativemunicipality', qs.stringify(data),
         {
@@ -29,8 +28,7 @@ export default {
         })
     },
     loadDaily({ commit }) {
-      // TODO: Change data to localStorage
-      var data = { municipality: 'Helmond'}
+      var data = { municipality: localStorage.getItem('municipality')}
       api
         .post('/covid/dailymunicipality', qs.stringify(data),
         {
