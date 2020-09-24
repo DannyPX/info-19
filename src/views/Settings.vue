@@ -6,10 +6,11 @@
         :location="true"
         title="Location"
         option="Automatic"
+        :toggle="checkLocalStorage('locationAuto', 'on')"
+        @functionName="toggleAutoLocation"
         :slide2="true"
         option2="Manual"
         currentLocation="Eindhoven"
-        :toggle="false"
       ></Block>
       <Block
         :notification="true"
@@ -21,9 +22,10 @@
         :theme="true"
         title="Theme"
         option="Dark mode"
-        :toggle="checkLocalStorage()"
+        :toggle="checkLocalStorage('themeColor', 'dark-mode')"
         @functionName="toggleTheme"
       ></Block>
+      <span>{{ latLng.lat }} - {{ latLng.lng }}</span>
       <span class="version">Version {{ version }}</span>
     </Section1>
   </div>
@@ -39,12 +41,50 @@ export default {
   data() {
     return {
       version: "0.0.1",
+      latLng: {
+        lat: null,
+        lng: null,
+      },
     };
   },
   methods: {
-    checkLocalStorage() {
-      let theme = localStorage.getItem("themeColor");
-      return theme == "dark-mode" ? true : false;
+    checkLocalStorage(key, value) {
+      let locationAuto = localStorage.getItem(key);
+      return locationAuto == value ? true : false;
+    },
+    async getLocation() {
+      return new Promise((resolve, reject) => {
+        if (!("geolocation" in navigator)) {
+          reject(new Error("Geolocation is not available."));
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            resolve(pos);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+      });
+    },
+    async toggleAutoLocation() {
+      let locationAuto = localStorage.getItem("locationAuto");
+      let location;
+
+      if (locationAuto != "on") {
+        try {
+          location = await this.getLocation();
+          localStorage.setItem("locationAuto", "on");
+          this.latLng.lat = location.coords.latitude;
+          this.latLng.lng = location.coords.longitude;
+        } catch (e) {
+          console.log(e);
+          localStorage.setItem("locationAuto", "off");
+        }
+      } else {
+        localStorage.setItem("locationAuto", "off");
+      }
     },
     toggleTheme() {
       const main = document.getElementById("main");
