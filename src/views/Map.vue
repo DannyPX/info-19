@@ -3,6 +3,12 @@
     <Topbar title="MAP" :map="false" :settings="false"></Topbar>
     <Section1 :top="90">
       <Sort :marginY="10" :marginX="20"></Sort>
+      <iframe
+        class="localfocusvisual"
+        frameborder="0"
+        style="width:100%;height:550px;overflow:hidden"
+        src="https://localfocuswidgets.net/5f6d9fa996a0c"
+      ></iframe>
     </Section1>
   </div>
 </template>
@@ -17,7 +23,7 @@ export default {
   components: {
     Topbar,
     Section1,
-    Sort,
-  },
+    Sort
+  }
 };
 </script>

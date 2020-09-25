@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       location: "Choose a location",
-      version: "0.0.1",
+      version: "0.0.1"
     };
   },
   methods: {
@@ -104,13 +104,13 @@ export default {
         localStorage.setItem("themeColor", "dark-mode");
         main.classList.add("dark-mode");
       }
-    },
+    }
   },
   components: {
     Topbar,
     Section1,
-    Block,
-  },
+    Block
+  }
 };
 </script>
 

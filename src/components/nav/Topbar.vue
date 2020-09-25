@@ -32,7 +32,7 @@ export default {
     title: String,
     map: Boolean,
     settings: Boolean,
-    dropdown: Boolean,
+    dropdown: Boolean
   },
   mounted() {
     let dropdown = document.getElementById("dropdown");
@@ -42,8 +42,8 @@ export default {
   },
   components: {
     MapIcon,
-    SettingsIcon,
-  },
+    SettingsIcon
+  }
 };
 </script>
 

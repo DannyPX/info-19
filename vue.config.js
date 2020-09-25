@@ -1,9 +1,6 @@
 const manifestJSON = require('./public/img/icons/manifest.json')
 
 module.exports = {
-  transpileDependencies: [
-    'vuetify'
-  ],
   pwa: {
     themeColor: manifestJSON.theme_color,
     name: manifestJSON.short_name,

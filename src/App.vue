@@ -14,11 +14,11 @@ export default {
       document
         .getElementById("main")
         .classList.add(localStorage.getItem("themeColor"));
-    },
+    }
   },
   beforeMount() {
     this.themeCheck();
-  },
+  }
 };
 </script>
 
@@ -33,6 +33,7 @@ export default {
   /* CONSTANTS */
   --white: #ffffff;
   --red: #ec1f27;
+  --green: #32cd32;
 
   /* STANDARD */
   --bg: #f2f2f2;

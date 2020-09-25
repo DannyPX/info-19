@@ -12,13 +12,13 @@ export default {
             lat: localStorage.getItem("latitude"),
             lon: localStorage.getItem("longitude"),
             key: "409bc2c998f4f2",
-            format: "json",
-          },
+            format: "json"
+          }
         })
-        .then((response) => {
+        .then(response => {
           localStorage.setItem("municipality", response.data.address.city);
         });
-    },
+    }
   },
-  getters: {},
+  getters: {}
 };

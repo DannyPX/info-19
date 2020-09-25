@@ -44,7 +44,7 @@ export default {
     slide2: Boolean,
     option2: String,
     currentLocation: String,
-    toggle: Boolean,
+    toggle: Boolean
   },
   methods: {
     vibrate() {
@@ -52,14 +52,14 @@ export default {
     },
     functionName() {
       this.$emit("functionName");
-    },
+    }
   },
   components: {
     MapPinIcon,
     BellIcon,
     LayoutIcon,
-    ToggleButton,
-  },
+    ToggleButton
+  }
 };
 </script>
 

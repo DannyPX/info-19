@@ -15,8 +15,8 @@ export default {
   props: {
     title: String,
     marginY: Number,
-    marginX: Number,
-  },
+    marginX: Number
+  }
 };
 </script>
 
