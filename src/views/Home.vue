@@ -7,6 +7,13 @@
       :dropdown="true"
     ></Topbar>
     <Section1 :top="165">
+      <span
+        style="display: block; margin-left: 90px; position: absolute;"
+        v-if="false"
+        @click="test"
+      >
+        Click to change municipality
+      </span>
       <Statistics></Statistics>
       <Section2>
         <Sort title="Graph"></Sort>
@@ -15,7 +22,6 @@
           :colors="['rgb(236, 31, 39)']"
           height="25vh"
           :min="0"
-          :max="60"
         ></column-chart>
       </Section2>
     </Section1>
@@ -35,21 +41,22 @@ export default {
   data() {
     return {
       placeholder: [
-        ["13 sept", 8],
-        ["14 sept", 13],
-        ["15 sept", 11],
-        ["16 sept", 17],
-        ["17 sept", 14],
-        ["18 sept", 16]
+        ["19 sept", 985],
+        ["20 sept", 1003],
+        ["21 sept", 1021],
+        ["22 sept", 1057],
+        ["23 sept", 1093],
+        ["24 sept", 1130]
       ]
     };
   },
   methods: {
-    ...mapActions("data", ["loadSession", "loadCumulative", "loadDaily"]),
+    ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkDate() {
       let sessionDate = null;
       // Get current date in YYYY-MM-DD
       let currentDate = new Date().toISOString().substring(0, 10);
+      let currentTime = new Date().toISOString().substring(11, 13) * 1 + 2;
       // Check if sessionStorage contains cumulative
       if (sessionStorage.getItem("cumulative") != null) {
         // Convert date of last item in session to YYYY-MM-DD
@@ -60,13 +67,20 @@ export default {
       }
 
       // Compare session and current date
-      if (sessionDate != currentDate || sessionDate == null) {
+      if (
+        (sessionDate != currentDate && currentTime >= 12) ||
+        sessionDate == null
+      ) {
         this.loadCumulative();
         console.log("api used");
       } else {
         this.loadSession();
         console.log("session used");
       }
+    },
+    test() {
+      localStorage.setItem("municipality", "Amsterdam");
+      this.loadCumulative();
     }
   },
   created() {

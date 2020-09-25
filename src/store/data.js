@@ -37,7 +37,9 @@ export default {
         });
     },
     loadDaily({ commit }) {
-      let data = { municipality: localStorage.getItem("municipality") };
+      let data = {
+        municipality: localStorage.getItem("municipality") || "Eindhoven"
+      };
       api
         .post("/covid/dailymunicipality", qs.stringify(data), {
           headers: { "Content-Type": "application/x-www-form-urlencoded" }
