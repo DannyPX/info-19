@@ -16,7 +16,10 @@ export default {
           }
         })
         .then(response => {
-          localStorage.setItem("municipality", response.data.address.city);
+          localStorage.setItem(
+            "municipality",
+            response.data.address.city || response.data.address.village
+          );
         });
     }
   },
