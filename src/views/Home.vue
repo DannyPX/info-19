@@ -17,12 +17,7 @@
       <Statistics></Statistics>
       <Section2>
         <Sort title="Graph"></Sort>
-        <column-chart
-          :data="placeholder"
-          :colors="['rgb(236, 31, 39)']"
-          height="25vh"
-          :min="0"
-        ></column-chart>
+        <Graph></Graph>
       </Section2>
     </Section1>
   </div>
@@ -34,22 +29,11 @@ import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
 import Sort from "@/components/sort/Sort.vue";
+import Graph from "@/components/home/Graph.vue";
 import { mapActions } from "vuex";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      placeholder: [
-        ["19 sept", 985],
-        ["20 sept", 1003],
-        ["21 sept", 1021],
-        ["22 sept", 1057],
-        ["23 sept", 1093],
-        ["24 sept", 1130]
-      ]
-    };
-  },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkDate() {
@@ -71,7 +55,7 @@ export default {
 
       // Compare session and current date
       if (
-        (sessionDate != currentDate && currentTime >= 12) ||
+        (sessionDate != currentDate && currentTime >= 15) ||
         (sessionMunicipality != localMunicipality &&
           localMunicipality != null) ||
         sessionMunicipality != "Eindhoven" ||
@@ -97,7 +81,8 @@ export default {
     Section1,
     Statistics,
     Section2,
-    Sort
+    Sort,
+    Graph
   }
 };
 </script>

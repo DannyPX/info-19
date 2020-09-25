@@ -2,9 +2,9 @@
   <div class="sort" :style="'margin: ' + marginY + 'px ' + marginX + 'px;'">
     <span class="title">{{ title }}</span>
     <div class="box">
-      <span class="active">Reported</span>
-      <span>Hospitalized</span>
-      <span>Deceased</span>
+      <span id="rep" @click="changeActive('rep')" class="active">Reported</span>
+      <span id="hos" @click="changeActive('hos')">Hospitalized</span>
+      <span id="dec" @click="changeActive('dec')">Deceased</span>
     </div>
   </div>
 </template>
@@ -16,6 +16,18 @@ export default {
     title: String,
     marginY: Number,
     marginX: Number
+  },
+  methods: {
+    changeActive(info) {
+      let clicked = document.getElementById(info);
+      let active = document.querySelector(".active");
+
+      if (active != clicked) {
+        active.classList.remove("active");
+        clicked.classList.add("active");
+        this.$emit("changeActive", clicked);
+      }
+    }
   }
 };
 </script>
@@ -53,6 +65,7 @@ export default {
 .box span.active {
   background: var(--red);
   color: var(--white);
+  transition: background 0.3s ease-out;
 }
 
 @media only screen and (max-width: 350px) {

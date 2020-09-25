@@ -15,8 +15,8 @@
           :color="{ checked: 'var(--red)', unchecked: 'var(--toggle)' }"
           :width="45"
           :margin="2"
-          @click.native="vibrate()"
-          @change="functionName()"
+          @click.native="vibrate"
+          @change="functionName"
         />
       </div>
       <div class="d-thin"></div>
