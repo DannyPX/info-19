@@ -54,6 +54,8 @@ export default {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkDate() {
       let sessionDate = null;
+      let sessionMunicipality = null;
+      let localMunicipality = localStorage.getItem("municipality");
       // Get current date in YYYY-MM-DD
       let currentDate = new Date().toISOString().substring(0, 10);
       let currentTime = new Date().toISOString().substring(11, 13) * 1 + 2;
@@ -64,11 +66,15 @@ export default {
         sessionDate = sessionArr[sessionArr.length - 1].Date_of_report.split(
           " "
         )[0];
+        sessionMunicipality = sessionArr[0].Municipality_name;
       }
 
       // Compare session and current date
       if (
         (sessionDate != currentDate && currentTime >= 12) ||
+        (sessionMunicipality != localMunicipality &&
+          localMunicipality != null) ||
+        sessionMunicipality != "Eindhoven" ||
         sessionDate == null
       ) {
         this.loadCumulative();
