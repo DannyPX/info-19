@@ -1,21 +1,37 @@
 <template>
   <div class="box">
     <span
+      v-if="info"
       :style="change > 0 ? 'color: var(--red)' : 'color: var(--green)'"
       class="change"
       >{{ change > 0 ? "+" + change : "0" }}</span
     >
-    <span class="number">{{ value }}</span>
-    <span class="type">Reported</span>
+    <span v-if="info" class="number">{{ value }}</span>
+    <span v-else class="loading">
+      <img :src="src" />
+    </span>
+    <span class="type">{{ type }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: "Infobox",
+  data() {
+    return {
+      src: "/img/gif/loadingL.gif"
+    };
+  },
   props: {
     value: Number,
-    change: Number
+    change: Number,
+    type: String,
+    info: Boolean
+  },
+  mounted() {
+    localStorage.getItem("themeColor") == "dark-mode"
+      ? (this.src = "/img/gif/loadingD.gif")
+      : (this.src = "/img/gif/loadingL.gif");
   }
 };
 </script>
@@ -50,5 +66,8 @@ export default {
 .box .type {
   color: var(--text);
   font-size: clamp(0.95rem, 3vw, 1.4rem);
+}
+
+.loading img {
 }
 </style>

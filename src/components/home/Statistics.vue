@@ -4,22 +4,30 @@
       <span class="title">Statistics</span>
       <span v-if="cumulative != ''" class="date">{{ cumulativeLastDate }}</span>
     </div>
-    <div class="wrap">
+    <div v-if="cumulative != ''" class="wrap">
       <Infobox
-        v-if="cumulative != ''"
+        :info="true"
         :value="cumulativeReportedLast"
         :change="cumulativeReportedChange"
+        type="Reported"
       ></Infobox>
       <Infobox
-        v-if="cumulative != ''"
+        :info="true"
         :value="cumulativeHospitalizedLast"
         :change="cumulativeHospitalizedChange"
+        type="Hospitalized"
       ></Infobox>
       <Infobox
-        v-if="cumulative != ''"
+        :info="true"
         :value="cumulativeDeceasedLast"
         :change="cumulativeDeceasedChange"
+        type="Deceased"
       ></Infobox>
+    </div>
+    <div v-else class="wrap">
+      <Infobox type="Reported"></Infobox>
+      <Infobox type="Hospitalized"></Infobox>
+      <Infobox type="Deceased"></Infobox>
     </div>
   </div>
 </template>

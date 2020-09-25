@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       theme: localStorage.getItem("themeColor"),
-      src: "https://localfocuswidgets.net/5f6dd256bb608"
+      src: "https://localfocuswidgets.net/5f6dd9b6f2be6"
     };
   },
   methods: {

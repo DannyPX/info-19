@@ -38,7 +38,7 @@ export default {
     },
     loadDaily({ commit }) {
       let data = {
-        municipality: localStorage.getItem("municipality") || "Eindhoven"
+        municipality: localStorage.getItem("municipality")
       };
       api
         .post("/covid/dailymunicipality", qs.stringify(data), {
