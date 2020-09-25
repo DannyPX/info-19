@@ -26,7 +26,7 @@ export default {
     },
     loadCumulative({ commit }) {
       let data = {
-        municipality: localStorage.getItem("municipality") || "Eindhoven"
+        municipality: localStorage.getItem("municipality")
       };
       api
         .post("/covid/cumulativemunicipality", qs.stringify(data), {

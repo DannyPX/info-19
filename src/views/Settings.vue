@@ -8,9 +8,6 @@
         option="Automatic"
         :toggle="checkLocalStorage('locationAuto', 'on')"
         @functionName="toggleAutoLocation"
-        :slide2="true"
-        option2="Manual"
-        :currentLocation="location"
       ></Block>
       <Block
         :notification="true"

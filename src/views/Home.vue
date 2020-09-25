@@ -34,6 +34,11 @@ import { mapActions } from "vuex";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      defaultLocation: localStorage.getItem("defaultLocation") || "Eindhoven"
+    };
+  },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkDate() {
@@ -42,30 +47,40 @@ export default {
       let localMunicipality = localStorage.getItem("municipality");
       // Get current date in YYYY-MM-DD
       let currentDate = new Date().toISOString().substring(0, 10);
+      // Get current time in hours
       let currentTime = new Date().toISOString().substring(11, 13) * 1 + 2;
+
+      // Prevent empty municipality in local storage
+      if (localMunicipality == null) {
+        localStorage.setItem("municipality", this.defaultLocation);
+      }
+
       // Check if sessionStorage contains cumulative
       if (sessionStorage.getItem("cumulative") != null) {
-        // Convert date of last item in session to YYYY-MM-DD
+        // Convert api data in session to usable JSON
         let sessionArr = JSON.parse(sessionStorage.getItem("cumulative"));
+        // Convert date of last item in session to YYYY-MM-DD
         sessionDate = sessionArr[sessionArr.length - 1].Date_of_report.split(
           " "
         )[0];
+        // Get the municipality name of the first item
         sessionMunicipality = sessionArr[0].Municipality_name;
       }
 
-      // Compare session and current date
+      // Reduce api calls made when entering the home screen by using sessions
+      // Use sessions storage when
+      // The sessions and current towns and date are the same
+      // The sessiondate is different from current and the time is before 15:00
       if (
-        (sessionDate != currentDate && currentTime >= 15) ||
-        (sessionMunicipality != localMunicipality &&
-          localMunicipality != null) ||
-        sessionMunicipality != "Eindhoven" ||
-        sessionDate == null
+        (sessionMunicipality == localMunicipality &&
+          sessionDate == currentDate) ||
+        (sessionDate != currentDate && currentTime < 15)
       ) {
-        this.loadCumulative();
-        console.log("api used");
-      } else {
         this.loadSession();
         console.log("session used");
+      } else {
+        this.loadCumulative();
+        console.log("api used");
       }
     },
     test() {

@@ -20,11 +20,6 @@
         />
       </div>
       <div class="d-thin"></div>
-      <div v-if="slide2" class="slide">
-        <span>{{ option2 }}</span>
-        <span class="location">{{ currentLocation }}</span>
-      </div>
-      <div v-if="slide2" class="d-thin"></div>
     </div>
   </div>
 </template>
@@ -41,9 +36,6 @@ export default {
     theme: Boolean,
     title: String,
     option: String,
-    slide2: Boolean,
-    option2: String,
-    currentLocation: String,
     toggle: Boolean
   },
   methods: {
