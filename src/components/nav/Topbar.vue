@@ -36,9 +36,11 @@ export default {
   },
   mounted() {
     let dropdown = document.getElementById("dropdown");
-    localStorage.getItem("themeColor") == "dark-mode"
-      ? (dropdown.style.backgroundImage = 'url("/img/svg/dropdownL.svg")')
-      : (dropdown.style.backgroundImage = 'url("/img/svg/dropdownD.svg")');
+    if (dropdown != null) {
+      localStorage.getItem("themeColor") == "dark-mode"
+        ? (dropdown.style.backgroundImage = 'url("/img/svg/dropdownL.svg")')
+        : (dropdown.style.backgroundImage = 'url("/img/svg/dropdownD.svg")');
+    }
   },
   components: {
     MapIcon,

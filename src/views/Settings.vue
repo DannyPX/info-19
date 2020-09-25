@@ -57,10 +57,10 @@ export default {
         }
 
         navigator.geolocation.getCurrentPosition(
-          (pos) => {
+          pos => {
             resolve(pos);
           },
-          (err) => {
+          err => {
             reject(err);
           }
         );
