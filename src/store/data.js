@@ -53,7 +53,7 @@ export default {
     cumulative: state => {
       return state.cumulative;
     },
-    cumulativeLastDate: state => {
+    date: state => {
       return state.cumulative[state.cumulative.length - 1].Date_of_report.split(
         " "
       )[0]
@@ -62,32 +62,32 @@ export default {
         .join("-");
     },
     // Reported data
-    cumulativeReportedLast: state => {
+    totalReported: state => {
       return state.cumulative[state.cumulative.length - 1].Total_reported;
     },
-    cumulativeReportedChange: (state, getters) => {
+    dailyReported: (state, getters) => {
       return (
-        getters.cumulativeReportedLast -
+        getters.totalReported -
         state.cumulative[state.cumulative.length - 2].Total_reported
       );
     },
     // Hospitalized data
-    cumulativeHospitalizedLast: state => {
+    totalHospitalized: state => {
       return state.cumulative[state.cumulative.length - 1].Hospital_admission;
     },
-    cumulativeHospitalizedChange: (state, getters) => {
+    dailyHospitalized: (state, getters) => {
       return (
-        getters.cumulativeHospitalizedLast -
+        getters.totalHospitalized -
         state.cumulative[state.cumulative.length - 2].Hospital_admission
       );
     },
     // Deceased data
-    cumulativeDeceasedLast: state => {
+    totalDeceased: state => {
       return state.cumulative[state.cumulative.length - 1].Deceased;
     },
-    cumulativeDeceasedChange: (state, getters) => {
+    dailyDeceased: (state, getters) => {
       return (
-        getters.cumulativeDeceasedLast -
+        getters.totalDeceased -
         state.cumulative[state.cumulative.length - 2].Deceased
       );
     },

@@ -2,25 +2,25 @@
   <div id="statistics">
     <div class="header">
       <span class="title">Statistics</span>
-      <span v-if="cumulative != ''" class="date">{{ cumulativeLastDate }}</span>
+      <span v-if="cumulative != ''" class="date">{{ date }}</span>
     </div>
     <div v-if="cumulative != ''" class="wrap">
       <Infobox
         :info="true"
-        :value="cumulativeReportedLast"
-        :change="cumulativeReportedChange"
+        :value="totalReported"
+        :change="dailyReported"
         type="Reported"
       ></Infobox>
       <Infobox
         :info="true"
-        :value="cumulativeHospitalizedLast"
-        :change="cumulativeHospitalizedChange"
+        :value="totalHospitalized"
+        :change="dailyHospitalized"
         type="Hospitalized"
       ></Infobox>
       <Infobox
         :info="true"
-        :value="cumulativeDeceasedLast"
-        :change="cumulativeDeceasedChange"
+        :value="totalDeceased"
+        :change="dailyDeceased"
         type="Deceased"
       ></Infobox>
     </div>
@@ -41,13 +41,13 @@ export default {
   computed: {
     ...mapGetters("data", [
       "cumulative",
-      "cumulativeLastDate",
-      "cumulativeReportedLast",
-      "cumulativeReportedChange",
-      "cumulativeHospitalizedLast",
-      "cumulativeHospitalizedChange",
-      "cumulativeDeceasedLast",
-      "cumulativeDeceasedChange"
+      "date",
+      "totalReported",
+      "dailyReported",
+      "totalHospitalized",
+      "dailyHospitalized",
+      "totalDeceased",
+      "dailyDeceased"
     ])
   },
   components: {

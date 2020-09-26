@@ -17,7 +17,7 @@
       <Statistics></Statistics>
       <Section2>
         <Sort title="Graph"></Sort>
-        <Graph></Graph>
+        <Chart></Chart>
       </Section2>
     </Section1>
   </div>
@@ -29,7 +29,7 @@ import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
 import Sort from "@/components/sort/Sort.vue";
-import Graph from "@/components/home/Graph.vue";
+import Chart from "@/components/home/Chart.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -97,7 +97,7 @@ export default {
     Statistics,
     Section2,
     Sort,
-    Graph
+    Chart
   }
 };
 </script>
