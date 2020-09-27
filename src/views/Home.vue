@@ -41,12 +41,15 @@ export default {
   },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
-    checkDate() {
+    checkSession() {
       let sessionDate = null;
+      let sessionDay = null;
       let sessionMunicipality = null;
       let localMunicipality = localStorage.getItem("municipality");
       // Get current date in YYYY-MM-DD
       let currentDate = new Date().toISOString().substring(0, 10);
+      // Get current day from date
+      let currentDay = currentDate.split("-")[2];
       // Get current time in hours
       let currentTime = new Date().toISOString().substring(11, 13) * 1 + 2;
 
@@ -63,6 +66,7 @@ export default {
         sessionDate = sessionArr[sessionArr.length - 1].Date_of_report.split(
           " "
         )[0];
+        sessionDay = sessionDate.split("-")[2] * 1;
         // Get the municipality name of the first item
         sessionMunicipality = sessionArr[0].Municipality_name;
       }
@@ -74,7 +78,9 @@ export default {
       if (
         (sessionMunicipality == localMunicipality &&
           sessionDate == currentDate) ||
-        (sessionDate != currentDate && currentTime < 15)
+        (sessionMunicipality == localMunicipality &&
+          sessionDay == currentDay - 1 &&
+          currentTime < 15)
       ) {
         this.loadSession();
         console.log("session used");
@@ -89,7 +95,7 @@ export default {
     }
   },
   created() {
-    this.checkDate();
+    this.checkSession();
   },
   components: {
     Topbar,
