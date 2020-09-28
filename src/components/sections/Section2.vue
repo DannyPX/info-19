@@ -8,8 +8,8 @@
 export default {
   name: "Section2",
   props: {
-    height: Number,
-  },
+    height: Number
+  }
 };
 </script>
 

@@ -61,8 +61,8 @@ html.dark-mode {
 
   /* HOME PAGE */
   --dropdown: #323232;
-  --filter: linear-gradient(#383838, #2c2c2c);
-  --statBox: linear-gradient(to bottom right, #383838, #212121);
+  --filter: linear-gradient(#383838, #242424);
+  --statBox: linear-gradient(to bottom right, #383838, #242424);
 
   /* SETTINGS PAGE */
   --slide: #d9d9d9;

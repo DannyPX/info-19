@@ -2,9 +2,9 @@
   <div class="box">
     <span
       v-if="info"
-      :style="change > 0 ? 'color: var(--red)' : 'color: var(--green)'"
-      class="change"
-      >{{ change > 0 ? "+" + change : "0" }}</span
+      :style="daily > 0 ? 'color: var(--red)' : 'color: var(--green)'"
+      class="daily"
+      >{{ daily > 0 ? "+" + daily : "0" }}</span
     >
     <span v-if="info" class="number">{{ value }}</span>
     <span v-else class="loading">
@@ -24,7 +24,7 @@ export default {
   },
   props: {
     value: Number,
-    change: Number,
+    daily: Number,
     type: String,
     info: Boolean
   },
@@ -48,7 +48,7 @@ export default {
   align-items: center;
 }
 
-.box .change {
+.box .daily {
   position: absolute;
   color: var(--red);
   top: 0;
@@ -66,8 +66,5 @@ export default {
 .box .type {
   color: var(--text);
   font-size: clamp(0.95rem, 3vw, 1.4rem);
-}
-
-.loading img {
 }
 </style>

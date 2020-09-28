@@ -7,16 +7,8 @@
       :dropdown="true"
     ></Topbar>
     <Section1 :top="165">
-      <span
-        style="display: block; margin-left: 90px; position: absolute;"
-        v-if="false"
-        @click="test"
-      >
-        Click to change municipality
-      </span>
       <Statistics></Statistics>
       <Section2>
-        <Sort title="Graph"></Sort>
         <Chart></Chart>
       </Section2>
     </Section1>
@@ -28,7 +20,6 @@ import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
-import Sort from "@/components/sort/Sort.vue";
 import Chart from "@/components/home/Chart.vue";
 import { mapActions } from "vuex";
 
@@ -88,10 +79,6 @@ export default {
         this.loadCumulative();
         console.log("api used");
       }
-    },
-    test() {
-      localStorage.setItem("municipality", "Amsterdam");
-      this.loadCumulative();
     }
   },
   created() {
@@ -102,7 +89,6 @@ export default {
     Section1,
     Statistics,
     Section2,
-    Sort,
     Chart
   }
 };

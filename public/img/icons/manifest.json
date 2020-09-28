@@ -4,6 +4,7 @@
     "theme_color": "#17171d",
     "background_color": "#17171d",
     "display": "standalone",
+    "orientation": "portrait",
     "Scope": "/",
     "start_url": "https://covid-app-sm.herokuapp.com/",
     "splash_pages": null,

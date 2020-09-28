@@ -4,8 +4,7 @@ import qs from "qs";
 export default {
   namespaced: true,
   state: {
-    cumulative: [],
-    daily: []
+    cumulative: []
   },
   mutations: {
     LOAD_SESSION(state) {
@@ -14,10 +13,6 @@ export default {
     SET_CUMULATIVE(state, data) {
       state.cumulative = data;
       sessionStorage.setItem("cumulative", JSON.stringify(data));
-    },
-    SET_DAILY(state, data) {
-      state.daily = data;
-      sessionStorage.setItem("daily", JSON.stringify(data));
     }
   },
   actions: {
@@ -33,19 +28,12 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" }
         })
         .then(response => {
+          let arr = [];
+          for (let i = 7; i > 0; i--) {
+            arr.push(response.data[response.data.length - i]);
+          }
+          response.data = arr;
           commit("SET_CUMULATIVE", response.data);
-        });
-    },
-    loadDaily({ commit }) {
-      let data = {
-        municipality: localStorage.getItem("municipality")
-      };
-      api
-        .post("/covid/dailymunicipality", qs.stringify(data), {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" }
-        })
-        .then(response => {
-          commit("SET_DAILY", response.data);
         });
     }
   },
@@ -91,8 +79,50 @@ export default {
         state.cumulative[state.cumulative.length - 2].Deceased
       );
     },
-    daily: state => {
-      return state.daily;
+    lastSixDays: state => {
+      let arr = [];
+      for (let i = 6; i > 0; i--) {
+        arr.push(
+          state.cumulative[
+            state.cumulative.length - i
+          ].Date_of_report.substring(5, 10)
+            .split("-")
+            .reverse()
+            .join("/")
+        );
+      }
+      return arr;
+    },
+    lastSixReports: state => {
+      let arr = [];
+      for (let i = 6; i > 0; i--) {
+        arr.push(
+          state.cumulative[state.cumulative.length - i].Total_reported -
+            state.cumulative[state.cumulative.length - (i + 1)].Total_reported
+        );
+      }
+      return arr;
+    },
+    lastSixHospitalized: state => {
+      let arr = [];
+      for (let i = 6; i > 0; i--) {
+        arr.push(
+          state.cumulative[state.cumulative.length - i].Hospital_admission -
+            state.cumulative[state.cumulative.length - (i + 1)]
+              .Hospital_admission
+        );
+      }
+      return arr;
+    },
+    lastSixDeceased: state => {
+      let arr = [];
+      for (let i = 6; i > 0; i--) {
+        arr.push(
+          state.cumulative[state.cumulative.length - i].Deceased -
+            state.cumulative[state.cumulative.length - (i + 1)].Deceased
+        );
+      }
+      return arr;
     }
   }
 };

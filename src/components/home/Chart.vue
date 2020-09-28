@@ -1,20 +1,27 @@
 <template>
-  <div class="chart-wrap">
-    <Barchart
-      :height="210"
-      :chartData="datacollection"
-      :options="options"
-    ></Barchart>
+  <div>
+    <Sort @changeActive="changeChart" title="Graph"></Sort>
+    <div class="chart-wrap">
+      <Barchart
+        v-if="cumulative != ''"
+        :height="210"
+        :chartData="datacollection"
+        :options="options"
+      ></Barchart>
+    </div>
   </div>
 </template>
 
 <script>
+import Sort from "@/components/sort/Sort.vue";
 import Barchart from "@/components/chart/Barchart.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Chart",
   data() {
     return {
+      statType: 0,
       datacollection: {
         label: "",
         backgroundColor: "#ec1f27",
@@ -58,31 +65,60 @@ export default {
       }
     };
   },
-  mounted() {
-    this.fillData();
-  },
-  components: {
-    Barchart
+  computed: {
+    ...mapGetters("data", [
+      "cumulative",
+      "lastSixDays",
+      "lastSixReports",
+      "lastSixHospitalized",
+      "lastSixDeceased"
+    ])
   },
   methods: {
     fillData() {
-      if (localStorage.getItem("themeColor") == "dark-mode") {
-        this.options.scales.yAxes[0].ticks.fontColor = "#ffffff";
-        this.options.scales.xAxes[0].ticks.fontColor = "#ffffff";
-      }
       this.datacollection = {
-        labels: ["20/09", "21/09", "22/09", "23/09", "24/09", "25/09"],
+        labels: this.lastSixDays,
         datasets: [
           {
             label: null,
             backgroundColor: "#ec1f27",
             hoverBackgroundColor: "#bc1016",
-            data: [42, 45, 55, 60, 63, 72],
+            data: this.statType != 0 ? this.statType : this.lastSixReports,
             barPercentage: 0.4
           }
         ]
       };
+    },
+    changeChart(clicked) {
+      switch (clicked.id) {
+        case "rep":
+          this.statType = this.lastSixReports;
+          break;
+        case "hos":
+          this.statType = this.lastSixHospitalized;
+          break;
+        case "dec":
+          this.statType = this.lastSixDeceased;
+          break;
+      }
+      this.fillData();
     }
+  },
+  watch: {
+    cumulative() {
+      this.fillData();
+    }
+  },
+  mounted() {
+    if (localStorage.getItem("themeColor") == "dark-mode") {
+      this.options.scales.yAxes[0].ticks.fontColor = "#ffffff";
+      this.options.scales.xAxes[0].ticks.fontColor = "#ffffff";
+    }
+    if (this.cumulative != "") this.fillData();
+  },
+  components: {
+    Sort,
+    Barchart
   }
 };
 </script>

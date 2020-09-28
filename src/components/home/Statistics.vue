@@ -4,27 +4,27 @@
       <span class="title">Statistics</span>
       <span v-if="cumulative != ''" class="date">{{ date }}</span>
     </div>
-    <div v-if="cumulative != ''" class="wrap">
+    <div v-if="cumulative != ''" key="statistics" class="wrap">
       <Infobox
         :info="true"
         :value="totalReported"
-        :change="dailyReported"
+        :daily="dailyReported"
         type="Reported"
       ></Infobox>
       <Infobox
         :info="true"
         :value="totalHospitalized"
-        :change="dailyHospitalized"
+        :daily="dailyHospitalized"
         type="Hospitalized"
       ></Infobox>
       <Infobox
         :info="true"
         :value="totalDeceased"
-        :change="dailyDeceased"
+        :daily="dailyDeceased"
         type="Deceased"
       ></Infobox>
     </div>
-    <div v-else class="wrap">
+    <div v-else key="statistics" class="wrap">
       <Infobox type="Reported"></Infobox>
       <Infobox type="Hospitalized"></Infobox>
       <Infobox type="Deceased"></Infobox>
