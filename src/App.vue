@@ -23,6 +23,28 @@ export default {
 </script>
 
 <style>
+/* latin */
+@font-face {
+  font-family: "Signika";
+  font-weight: 300;
+  font-display: swap;
+  src: url(./assets/fonts/signika.woff2) format("woff2");
+}
+/* latin */
+@font-face {
+  font-family: "Signika";
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/signika.woff2) format("woff2");
+}
+/* latin */
+@font-face {
+  font-family: "Signika";
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/fonts/signika.woff2) format("woff2");
+}
+
 .link {
   color: var(--white);
   display: flex;

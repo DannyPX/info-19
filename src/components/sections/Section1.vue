@@ -11,8 +11,8 @@
 export default {
   name: "Section1",
   props: {
-    top: Number,
-  },
+    top: Number
+  }
 };
 </script>
 

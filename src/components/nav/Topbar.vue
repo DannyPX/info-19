@@ -33,7 +33,7 @@
 
 <script>
 import { MapIcon, SettingsIcon } from "vue-feather-icons";
-import municipalities from "@/assets/municipalities.js";
+import municipalities from "@/assets/data/municipalities.js";
 import Multiselect from "vue-multiselect";
 import { mapActions } from "vuex";
 

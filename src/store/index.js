@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import data from '@/store/data'
-import location from '@/store/location'
+import Vue from "vue";
+import Vuex from "vuex";
+import data from "@/store/data";
+import location from "@/store/location";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const modules = { data, location }
+const modules = { data, location };
 
 const store = new Vuex.Store({
   modules
-})
+});
 
-export default store
+export default store;
