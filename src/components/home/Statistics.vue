@@ -2,9 +2,9 @@
   <div id="statistics">
     <div class="header">
       <span class="title">Statistics</span>
-      <span v-if="cumulative != ''" class="date">{{ date }}</span>
+      <span v-if="totalReported != '0'" class="date">{{ date }}</span>
     </div>
-    <div v-if="cumulative != ''" key="statistics" class="wrap">
+    <div v-if="totalReported != '0'" key="statistics" class="wrap">
       <Infobox
         :info="true"
         :value="totalReported"
@@ -40,7 +40,6 @@ export default {
   name: "Statistics",
   computed: {
     ...mapGetters("data", [
-      "cumulative",
       "date",
       "totalReported",
       "dailyReported",

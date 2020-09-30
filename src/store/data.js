@@ -4,7 +4,50 @@ import qs from "qs";
 export default {
   namespaced: true,
   state: {
-    cumulative: []
+    cumulative: [
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      },
+      {
+        Date_of_report: "yyyy-00-00",
+        Total_reported: 0,
+        Hospital_admission: 0,
+        Deceased: 0
+      }
+    ]
   },
   mutations: {
     LOAD_SESSION(state) {
