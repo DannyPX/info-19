@@ -25,11 +25,6 @@ import { mapActions } from "vuex";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      defaultLocation: localStorage.getItem("defaultLocation") || "Eindhoven"
-    };
-  },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkSession() {
@@ -46,7 +41,7 @@ export default {
 
       // Prevent empty municipality in local storage
       if (localMunicipality == null) {
-        localStorage.setItem("municipality", this.defaultLocation);
+        localStorage.setItem("municipality", "Eindhoven");
       }
 
       // Check if sessionStorage contains cumulative
@@ -74,10 +69,10 @@ export default {
           currentTime < 15)
       ) {
         this.loadSession();
-        console.log("session used");
+        window.console.log("session used");
       } else {
         this.loadCumulative();
-        console.log("api used");
+        window.console.log("api used");
       }
     }
   },

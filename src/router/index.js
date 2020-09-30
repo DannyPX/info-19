@@ -8,27 +8,23 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: Home
   },
   {
     path: "/settings",
     name: "Settings",
-    // route level code-splitting
-    // this generates a separate chunk (settings.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "settings" */ "../views/Settings.vue"),
+    component: () => import("../views/Settings.vue")
   },
   {
     path: "/map",
     name: "Map",
-    component: () => import("../views/Map.vue"),
-  },
+    component: () => import("../views/Map.vue")
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  routes,
+  routes
 });
 
 export default router;

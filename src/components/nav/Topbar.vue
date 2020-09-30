@@ -23,7 +23,10 @@
       :options="options"
       :show-labels="false"
       :allow-empty="false"
-      :options-limit="5"
+      :limit="5"
+      :maxHeight="205"
+      :showNoResults="false"
+      @click.native="test"
     ></multiselect>
   </nav>
 </template>
@@ -58,9 +61,12 @@ export default {
       ) {
         localStorage.setItem("municipality", this.selected);
         this.placeholder = localStorage.getItem("municipality");
-        console.log("municipality changed");
+        window.console.log("api used and municipality changed");
         this.loadCumulative();
       }
+    },
+    test() {
+      document.querySelector(".multiselect__tags").focus();
     }
   },
   components: {
@@ -77,7 +83,7 @@ export default {
 nav {
   width: 100%;
   height: 200px;
-  background: var(--red);
+  background: var(--tbBackground);
   display: flex;
   flex-flow: column nowrap;
 }
@@ -87,10 +93,10 @@ nav {
   padding: 0 20px;
   justify-content: space-between;
   margin-top: 45px;
+  color: var(--tbItems);
 }
 
 .items span {
-  color: var(--white);
   font-size: 1.3rem;
   font-weight: 300;
 }
@@ -152,8 +158,10 @@ fieldset[disabled] .multiselect {
 .multiselect__input,
 .multiselect__single {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  color: var(--tbText);
   margin-top: 5px;
+  margin-left: 5px;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 }
@@ -165,7 +173,7 @@ fieldset[disabled] .multiselect {
   margin: 20px;
   height: 50px;
   text-align: left;
-  color: var(--text);
+  color: var(--tbText);
 }
 .multiselect * {
   box-sizing: border-box;
@@ -197,6 +205,9 @@ fieldset[disabled] .multiselect {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.multiselect--active .multiselect__tags {
+  border: 1px solid var(--tbDropdownBorder);
+}
 .multiselect__input,
 .multiselect__single {
   position: relative;
@@ -214,10 +225,10 @@ fieldset[disabled] .multiselect {
   vertical-align: top;
 }
 .multiselect__input:-ms-input-placeholder {
-  color: var(--text);
+  color: var(--tbText);
 }
 .multiselect__input::placeholder {
-  color: var(--text);
+  color: var(--tbText);
 }
 .multiselect__tag ~ .multiselect__input,
 .multiselect__tag ~ .multiselect__single {
@@ -244,9 +255,10 @@ fieldset[disabled] .multiselect {
   display: block;
   padding: 8px 40px 0 8px;
   border-radius: 12px;
-  background: var(--dropdown);
   border: none;
-  font-size: 1rem;
+  background: var(--tbDropdown);
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 .multiselect__tag {
   position: relative;
@@ -322,17 +334,17 @@ fieldset[disabled] .multiselect {
   top: 65%;
   color: #999;
   margin-top: 4px;
-  border-color: var(--text) transparent transparent;
+  border-color: var(--tbText) transparent transparent;
   border-style: solid;
-  border-width: 5px 5px 0;
+  border-width: 6px 6px 0;
   content: "";
 }
 .multiselect__placeholder {
-  color: var(--text);
+  color: var(--tbText);
   display: inline-block;
   margin-bottom: 10px;
-  margin-left: 5px;
-  padding-top: 6px;
+  margin-left: 8px;
+  padding-top: 5px;
 }
 .multiselect--active .multiselect__placeholder {
   display: none;
@@ -340,12 +352,12 @@ fieldset[disabled] .multiselect {
 .multiselect__content-wrapper {
   position: absolute;
   display: block;
-  background: var(--dropdown);
+  background: var(--tbDropdown);
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-height: 240px;
   overflow: auto;
-  border: 1px solid transparent;
+  border: 1px solid var(--tbDropdownBorder);
   border-top: none;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -377,7 +389,7 @@ fieldset[disabled] .multiselect {
 }
 .multiselect__option {
   display: block;
-  padding: 12px;
+  padding: 12px 18px;
   height: 40px;
   line-height: 16px;
   text-decoration: none;

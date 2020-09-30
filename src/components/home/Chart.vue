@@ -4,6 +4,7 @@
     <div class="chart-wrap">
       <Barchart
         v-if="cumulative != ''"
+        key="chart"
         :height="210"
         :chartData="datacollection"
         :options="options"
@@ -21,6 +22,10 @@ export default {
   name: "Chart",
   data() {
     return {
+      xColor: "#000000",
+      yColor: "#000000",
+      barBorder: "transparent",
+      barBackground: "#ec1f27",
       statType: 0,
       datacollection: {
         label: "",
@@ -28,11 +33,12 @@ export default {
         data: 0
       },
       options: {
+        cornerRadius: 20,
         scales: {
           xAxes: [
             {
               ticks: {
-                fontColor: "#000000",
+                fontColor: this.xColor,
                 fontFamily: "Signika",
                 fontSize: 14
               },
@@ -45,8 +51,8 @@ export default {
             {
               ticks: {
                 beginAtZero: true,
-                maxTicksLimit: 8,
-                fontColor: "#000000",
+                maxTicksLimit: 7,
+                fontColor: this.yColor,
                 fontFamily: "Signika",
                 fontSize: 14
               },
@@ -81,7 +87,9 @@ export default {
         datasets: [
           {
             label: null,
-            backgroundColor: "#ec1f27",
+            backgroundColor: this.barBackground,
+            borderWidth: 1,
+            borderColor: this.barBorder,
             hoverBackgroundColor: "#bc1016",
             data: this.statType != 0 ? this.statType : this.lastSixReports,
             barPercentage: 0.4
@@ -111,8 +119,10 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("themeColor") == "dark-mode") {
-      this.options.scales.yAxes[0].ticks.fontColor = "#ffffff";
-      this.options.scales.xAxes[0].ticks.fontColor = "#ffffff";
+      this.xColor = "#a4a4a4";
+      this.yColor = "#a4a4a4";
+      this.barBorder = "#ed454b";
+      this.barBackground = "#321E1F";
     }
     if (this.cumulative != "") this.fillData();
   },
@@ -127,6 +137,7 @@ export default {
 .chart-wrap {
   position: relative;
   background: var(--statBox);
+  margin: 0 20px;
   padding: 10px 10px 5px 5px;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
   border-radius: 12px;

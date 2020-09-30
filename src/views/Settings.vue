@@ -78,7 +78,7 @@ export default {
           );
           this.getLocation();
         } catch (e) {
-          console.log(e);
+          window.console.log(e);
           localStorage.setItem("locationAuto", "off");
         }
       } else {
@@ -113,7 +113,7 @@ export default {
 
 <style scoped>
 .version {
-  color: var(--slide);
+  color: var(--statText60);
   position: absolute;
   display: block;
   width: 100%;

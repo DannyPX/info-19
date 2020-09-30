@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sort @changeActive="changeMap" :marginY="10" :marginX="20"></Sort>
+    <Sort @changeActive="changeMap"></Sort>
     <div class="map-wrap">
       <iframe
         class="localfocusvisual"

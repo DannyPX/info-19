@@ -30,43 +30,69 @@ export default {
 }
 
 :root {
-  /* CONSTANTS */
-  --white: #ffffff;
+  /* COLORS */
   --red: #ec1f27;
   --green: #32cd32;
 
-  /* STANDARD */
-  --bg: #f2f2f2;
+  /* TOPBAR */
+  --tbBackground: #ec1f27;
+  --tbItems: #ffffff;
+  --tbDropdown: #ffffff;
+  --tbDropdownBorder: transparent;
+  --tbText: #000000;
+
+  /* SECTIONS */
   --section1: #ffffff;
   --section2: #f2f2f2;
-  --text: #000000;
 
-  /* HOME PAGE */
-  --dropdown: #ffffff;
-  --filter: #ffffff;
+  /* INFO */
   --statBox: #ffffff;
+  --statText100: #000000;
+  --statText60: #000000;
+  --sortBackground: #ec1f27;
+  --sortActive: #ffffff;
 
-  /* SETTINGS PAGE */
-  --slide: #808080;
+  /* SETTINGS */
   --toggle: #e6e6e6;
-  --thinLine: #a6a6a6;
+}
+
+html.light-mode #section2 {
+  height: calc(100vh - 318px);
+  width: 100%;
+  background: var(--section2);
+  border-radius: 30px 30px 0 0;
+  box-sizing: border-box;
+  padding-top: 10px;
 }
 
 html.dark-mode {
-  /* STANDARD */
-  --bg: #1c1c1c;
-  --section1: linear-gradient(#262626, #1c1c1c);
-  --section2: linear-gradient(#2b2b2b, #1c1c1c);
-  --text: #ffffff;
+  /* COLORS */
+  --red: #ed454b;
+  --green: #259825;
 
-  /* HOME PAGE */
-  --dropdown: #323232;
-  --filter: linear-gradient(#383838, #242424);
-  --statBox: linear-gradient(to bottom right, #383838, #242424);
+  /* TOPBAR */
+  --tbBackground: #1c1c1c;
+  --tbItems: #e2e2e2;
+  --tbDropdown: #121212;
+  --tbDropdownBorder: #ed454b;
+  --tbText: #e2e2e2;
 
-  /* SETTINGS PAGE */
-  --slide: #d9d9d9;
-  --toggle: #404040;
-  --thinLine: #666666;
+  /* SECTIONS */
+  --section1: #121212;
+  --section2: #121212;
+
+  /* INFO */
+  --statBox: #1c1c1c;
+  --statText100: #e0e0e0;
+  --statText60: #a4a4a4;
+  --sortBackground: #1c1c1c;
+  --sortActive: #e2e2e2;
+
+  /* SETTINGS */
+  --toggle: #212121;
+}
+
+html.dark-mode #section2 {
+  margin-top: -10px;
 }
 </style>

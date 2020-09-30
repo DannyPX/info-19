@@ -64,7 +64,7 @@ export default {
 }
 
 .box .type {
-  color: var(--text);
+  color: var(--statText60);
   font-size: clamp(0.95rem, 3vw, 1.4rem);
 }
 </style>

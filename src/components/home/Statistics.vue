@@ -70,13 +70,13 @@ export default {
 }
 
 .header .title {
-  color: var(--text);
+  color: var(--statText100);
   font-weight: 500;
   font-size: 1.05rem;
 }
 
 .header .date {
-  color: var(--text);
+  color: var(--statText100);
   font-size: 0.9rem;
 }
 

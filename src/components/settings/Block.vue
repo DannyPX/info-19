@@ -66,7 +66,7 @@ export default {
 }
 
 .header {
-  color: var(--text);
+  color: var(--statText100);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -80,11 +80,11 @@ export default {
 
 .d-thick {
   margin-top: 3px;
-  border-bottom: 2px solid var(--text);
+  border-bottom: 2px solid var(--statText100);
 }
 
 .d-thin {
-  border-bottom: 1px solid var(--thinLine);
+  border-bottom: 1px solid var(--statText60);
 }
 
 .slide {
@@ -93,11 +93,6 @@ export default {
   justify-content: space-between;
   margin: 10px 0;
   font-size: 1.05rem;
-  color: var(--slide);
-}
-
-.location {
-  color: var(--text);
-  font-weight: 500;
+  color: var(--statText60);
 }
 </style>
