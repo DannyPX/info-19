@@ -84,7 +84,7 @@ export default {
 }
 
 .d-thin {
-  border-bottom: 1px solid var(--statText60);
+  border-bottom: 1px solid var(--line);
 }
 
 .slide {

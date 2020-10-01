@@ -70,12 +70,14 @@ export default {
   /* INFO */
   --statBox: #ffffff;
   --statText100: #000000;
-  --statText60: #000000;
+  --statText87: #000000;
+  --statText60: #404040;
   --sortBackground: #ec1f27;
   --sortActive: #ffffff;
 
   /* SETTINGS */
   --toggle: #e6e6e6;
+  --line: #a6a6a6;
 }
 
 html.light-mode #section2 {
@@ -106,12 +108,14 @@ html.dark-mode {
   /* INFO */
   --statBox: #1c1c1c;
   --statText100: #e0e0e0;
-  --statText60: #a4a4a4;
+  --statText87: #e2e2e2;
+  --statText60: #c6c6c6;
   --sortBackground: #1c1c1c;
   --sortActive: #e2e2e2;
 
   /* SETTINGS */
-  --toggle: #212121;
+  --toggle: #2c2c2c;
+  --line: #717171;
 }
 
 html.dark-mode #section2 {

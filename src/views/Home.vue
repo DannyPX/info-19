@@ -12,6 +12,7 @@
         <Chart></Chart>
       </Section2>
     </Section1>
+    <GuidePopup v-if="guide == null" @guideClosed="guide = true"></GuidePopup>
   </div>
 </template>
 
@@ -21,10 +22,16 @@ import Section1 from "@/components/sections/Section1.vue";
 import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
 import Chart from "@/components/home/Chart.vue";
+import GuidePopup from "@/components/guide/GuidePopup.vue";
 import { mapActions } from "vuex";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      guide: localStorage.getItem("guide")
+    };
+  },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
     checkSession() {
@@ -90,7 +97,8 @@ export default {
     Section1,
     Statistics,
     Section2,
-    Chart
+    Chart,
+    GuidePopup
   }
 };
 </script>

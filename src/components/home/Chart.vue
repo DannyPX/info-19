@@ -22,8 +22,6 @@ export default {
   name: "Chart",
   data() {
     return {
-      xColor: "#000000",
-      yColor: "#000000",
       barBorder: "transparent",
       barBackground: "#ec1f27",
       statType: 0,
@@ -38,7 +36,7 @@ export default {
           xAxes: [
             {
               ticks: {
-                fontColor: this.xColor,
+                fontColor: "#000000",
                 fontFamily: "Signika",
                 fontSize: 14
               },
@@ -52,7 +50,7 @@ export default {
               ticks: {
                 beginAtZero: true,
                 maxTicksLimit: 7,
-                fontColor: this.yColor,
+                fontColor: "#000000",
                 fontFamily: "Signika",
                 fontSize: 14
               },
@@ -89,7 +87,7 @@ export default {
           {
             label: null,
             backgroundColor: this.barBackground,
-            borderWidth: 1,
+            borderWidth: 1.2,
             borderColor: this.barBorder,
             hoverBackgroundColor: "#bc1016",
             data: this.statType != 0 ? this.statType : this.lastSixReports,
@@ -120,8 +118,8 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("themeColor") == "dark-mode") {
-      this.xColor = "#a4a4a4";
-      this.yColor = "#a4a4a4";
+      this.options.scales.xAxes[0].ticks.fontColor = "#c6c6c6";
+      this.options.scales.yAxes[0].ticks.fontColor = "#c6c6c6";
       this.barBorder = "#ed454b";
       this.barBackground = "#321E1F";
     }

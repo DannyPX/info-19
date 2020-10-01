@@ -75,7 +75,7 @@ export default {
 }
 
 .header .date {
-  color: var(--statText100);
+  color: var(--statText60);
   font-size: 0.9rem;
 }
 
