@@ -35,7 +35,7 @@ export default {
       // Get current date in YYYY-MM-DD
       let currentDate = new Date().toISOString().substring(0, 10);
       // Get current day from date
-      let currentDay = currentDate.split("-")[2];
+      let currentDay = currentDate.split("-")[2] * 1;
       // Get current time in hours
       let currentTime = new Date().toISOString().substring(11, 13) * 1 + 2;
 
@@ -66,6 +66,12 @@ export default {
           sessionDate == currentDate) ||
         (sessionMunicipality == localMunicipality &&
           sessionDay == currentDay - 1 &&
+          currentTime < 15) ||
+        (sessionMunicipality == localMunicipality &&
+          sessionDay - 29 == currentDay &&
+          currentTime < 15) ||
+        (sessionMunicipality == localMunicipality &&
+          sessionDay - 30 == currentDay &&
           currentTime < 15)
       ) {
         this.loadSession();

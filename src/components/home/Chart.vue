@@ -2,8 +2,8 @@
   <div>
     <Sort @changeActive="changeChart" title="Graph"></Sort>
     <div class="chart-wrap">
+      <span v-if="totalReported == 0" class="loader">Loading...</span>
       <Barchart
-        v-if="cumulative != ''"
         key="chart"
         :height="210"
         :chartData="datacollection"
@@ -74,6 +74,7 @@ export default {
   computed: {
     ...mapGetters("data", [
       "cumulative",
+      "totalReported",
       "lastSixDays",
       "lastSixReports",
       "lastSixHospitalized",
@@ -141,5 +142,14 @@ export default {
   padding: 10px 10px 5px 5px;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
+}
+
+.loader {
+  color: var(--statText100);
+  font-size: clamp(0.95rem, 3vw, 1.4rem);
+  position: absolute;
+  right: 50%;
+  bottom: 55%;
+  transform: translateX(50%);
 }
 </style>
