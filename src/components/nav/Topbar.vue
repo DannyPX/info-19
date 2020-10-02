@@ -64,9 +64,6 @@ export default {
         window.console.log("api used and municipality changed");
         this.loadCumulative();
       }
-    },
-    test() {
-      document.querySelector(".multiselect__tags").focus();
     }
   },
   components: {

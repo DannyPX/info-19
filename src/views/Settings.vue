@@ -13,8 +13,13 @@
         :notification="true"
         title="Notifications"
         option="Push notifications"
-        :toggle="false"
+        :toggle="checkLocalStorage('notification', 'true')"
+        @functionName="toggleNotification"
       ></Block>
+      <span class="blocked" v-if="blocked"
+        >You have notifications blocked, please change this in your browser
+        settings.</span
+      >
       <Block
         :theme="true"
         title="Theme"
@@ -38,54 +43,35 @@ export default {
   data() {
     return {
       location: "Choose a location",
-      version: "0.0.1"
+      blocked: false,
+      version: "1.1.2"
     };
   },
   methods: {
-    ...mapActions("location", ["getLocation"]),
+    ...mapActions("location", ["toggleAutoLocation"]),
     checkLocalStorage(key, value) {
       let locationAuto = localStorage.getItem(key);
       return locationAuto == value ? true : false;
     },
-    async getLatLng() {
-      return new Promise((resolve, reject) => {
-        if (!("geolocation" in navigator)) {
-          reject(new Error("Geolocation is not available."));
-        }
-
-        navigator.geolocation.getCurrentPosition(
-          pos => {
-            resolve(pos);
-          },
-          err => {
-            reject(err);
-          }
-        );
-      });
-    },
-    async toggleAutoLocation() {
-      let locationAuto = localStorage.getItem("locationAuto");
-      let location;
-
-      if (locationAuto != "on") {
-        try {
-          location = await this.getLatLng();
-          localStorage.setItem("locationAuto", "on");
-          localStorage.setItem("latitude", location.coords.latitude.toFixed(6));
-          localStorage.setItem(
-            "longitude",
-            location.coords.longitude.toFixed(6)
-          );
-          this.getLocation();
-        } catch (e) {
-          window.console.log(e);
-          localStorage.setItem("locationAuto", "off");
+    toggleNotification() {
+      if (localStorage.getItem("notification") != "true") {
+        if (Notification.permission === "granted") {
+          console.log("Granted");
+          localStorage.setItem("notification", "true");
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(function(permission) {
+            if (permission === "granted") {
+              console.log("Granted");
+              localStorage.setItem("notification", "true");
+            } else if (Notification.permission === "denied") {
+              localStorage.setItem("notification", "false");
+            }
+          });
+        } else if (Notification.permission === "denied") {
+          this.blocked = true;
         }
       } else {
-        localStorage.removeItem("latitude");
-        localStorage.removeItem("longitude");
-        localStorage.removeItem("municipality");
-        localStorage.setItem("locationAuto", "off");
+        localStorage.setItem("notification", "false");
       }
     },
     toggleTheme() {
@@ -112,6 +98,13 @@ export default {
 </script>
 
 <style scoped>
+.blocked {
+  display: block;
+  margin: 0 20px;
+  color: var(--red);
+  font-size: 1rem;
+}
+
 .version {
   color: var(--statText60);
   position: absolute;

@@ -29,11 +29,13 @@ export default {
   name: "Home",
   data() {
     return {
-      guide: localStorage.getItem("guide")
+      guide: localStorage.getItem("guide"),
+      location: localStorage.getItem("locationAuto")
     };
   },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
+    ...mapActions("location", ["refreshLocation"]),
     checkSession() {
       let sessionDate = null;
       let sessionDay = null;
@@ -91,6 +93,12 @@ export default {
   },
   created() {
     this.checkSession();
+  },
+  mounted() {
+    if (this.location == "on") {
+      this.refreshLocation();
+      window.console.log("used current location");
+    }
   },
   components: {
     Topbar,
