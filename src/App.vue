@@ -26,18 +26,24 @@ export default {
         if (Notification.permission === "granted" && localStorage.getItem("locationAuto") == "on" && localStorage.getItem("notification") == "true") {
           if (localStorage.getItem("lastVisit") != localStorage.getItem("municipality")) {
             localStorage.setItem("lastVisit", localStorage.getItem("municipality"))
-            let startTime = new Date(Date.now() + 600000);
-            let endTime = new Date(startTime.getTime() + 1000);
-            j !== null
-            ? j.cancel() 
-            : schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/1 * * * * *'}, function () {
-              if(Notification.permission === "granted") {
-                new Notification("Je message mag hier Jorrit")
-              }
-            })
+            if(j !== null) {
+              j.cancel();
+              scheduleTimer();
+            } else {
+              scheduleTimer();
+            }
           }
         }
       })
+      function scheduleTimer() {
+        let startTime = new Date(Date.now() + 600000);
+        let endTime = new Date(startTime.getTime() + 1000);
+        j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/1 * * * * *'}, function () {
+          if(Notification.permission === "granted") {
+            new Notification("Je message mag hier Jorrit")
+          }
+        })
+      }
     }
   },
   beforeMount() {
