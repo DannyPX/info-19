@@ -35,7 +35,7 @@
 import { MapIcon, SettingsIcon } from "vue-feather-icons";
 import municipalities from "@/assets/data/municipalities.js";
 import Multiselect from "vue-multiselect";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Bigtopbar",
@@ -52,6 +52,9 @@ export default {
       options: municipalities
     };
   },
+  computed: {
+    ...mapGetters("location", ["municipality"])
+  },
   methods: {
     ...mapActions("data", ["loadCumulative"]),
     updateMunicipality() {
@@ -64,6 +67,12 @@ export default {
         window.console.log("api used and municipality changed");
         this.loadCumulative();
       }
+    }
+  },
+  watch: {
+    municipality() {
+      this.selected = this.municipality;
+      this.placeholder = this.municipality;
     }
   },
   components: {

@@ -23,7 +23,7 @@ import Statistics from "@/components/home/Statistics.vue";
 import Section2 from "@/components/sections/Section2.vue";
 import Chart from "@/components/home/Chart.vue";
 import GuidePopup from "@/components/guide/GuidePopup.vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
@@ -32,6 +32,9 @@ export default {
       guide: localStorage.getItem("guide"),
       location: localStorage.getItem("locationAuto")
     };
+  },
+  computed: {
+    ...mapGetters("location", ["municipality"])
   },
   methods: {
     ...mapActions("data", ["loadSession", "loadCumulative"]),
@@ -89,6 +92,11 @@ export default {
         this.loadCumulative();
         window.console.log("api used");
       }
+    }
+  },
+  watch: {
+    municipality() {
+      this.loadCumulative();
     }
   },
   created() {

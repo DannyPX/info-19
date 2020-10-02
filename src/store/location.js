@@ -2,7 +2,9 @@ import axios from "axios";
 
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    municipality: "Eindhoven"
+  },
   mutations: {},
   actions: {
     async getLatLng() {
@@ -57,7 +59,7 @@ export default {
         window.console.log(e);
       }
     },
-    async getLocation() {
+    async getLocation({ state }) {
       axios
         .get("https://eu1.locationiq.com/v1/reverse.php", {
           params: {
@@ -68,6 +70,8 @@ export default {
           }
         })
         .then(response => {
+          state.municipality =
+            response.data.address.city || response.data.address.village;
           localStorage.setItem(
             "municipality",
             response.data.address.city || response.data.address.village
@@ -75,5 +79,9 @@ export default {
         });
     }
   },
-  getters: {}
+  getters: {
+    municipality: state => {
+      return state.municipality;
+    }
+  }
 };
