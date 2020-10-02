@@ -3,9 +3,17 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-const schedule = require("node-schedule")
+import { mapActions, mapGetters } from "vuex";
+const schedule = require("node-schedule");
 export default {
+  computed: {
+    ...mapGetters("location", ["municipality"]),
+    ...mapGetters("data", [
+      "dailyReported",
+      "dailyHospitalized",
+      "dailyDeceased"
+    ])
+  },
   methods: {
     ...mapActions("location", ["refreshLocation"]),
     themeCheck() {
@@ -19,30 +27,60 @@ export default {
         .classList.add(localStorage.getItem("themeColor"));
     },
     notification() {
-      var _this = this;
-      var j = null;
-      schedule.scheduleJob("*/9 * * * *", function () {
-        _this.refreshLocation()
-        if (Notification.permission === "granted" && localStorage.getItem("locationAuto") == "on" && localStorage.getItem("notification") == "true") {
-          if (localStorage.getItem("lastVisit") != localStorage.getItem("municipality")) {
-            localStorage.setItem("lastVisit", localStorage.getItem("municipality"))
-            if(j !== null) {
+      let _this = this;
+      let j = null;
+      schedule.scheduleJob("*/9 * * * *", function() {
+        if (
+          Notification.permission === "granted" &&
+          localStorage.getItem("locationAuto") == "on" &&
+          localStorage.getItem("notification") == "true"
+        ) {
+          _this.refreshLocation();
+          if (
+            localStorage.getItem("lastVisit") !=
+            localStorage.getItem("municipality")
+          ) {
+            localStorage.setItem(
+              "lastVisit",
+              localStorage.getItem("municipality")
+            );
+            if (j !== null) {
               j.cancel();
               scheduleTimer();
             } else {
               scheduleTimer();
             }
           }
+        } else if (localStorage.getItem("locationAuto") == "on") {
+          _this.refreshLocation();
         }
-      })
+      });
       function scheduleTimer() {
         let startTime = new Date(Date.now() + 600000);
         let endTime = new Date(startTime.getTime() + 1000);
-        j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/1 * * * * *'}, function () {
-          if(Notification.permission === "granted") {
-            new Notification("Je message mag hier Jorrit")
+        j = schedule.scheduleJob(
+          { start: startTime, end: endTime, rule: "*/1 * * * * *" },
+          function() {
+            if (Notification.permission === "granted") {
+              let title = _this.municipality;
+              let options = {
+                body:
+                  "Reported: " +
+                  _this.dailyReported +
+                  " " +
+                  "Hospitalized: " +
+                  _this.dailyHospitalized +
+                  " " +
+                  "Deceased: " +
+                  _this.dailyDeceased,
+                icon: "https://info19.nl/favicon.ico",
+                vibrate: 50
+              };
+
+              new Notification(title, options);
+            }
           }
-        })
+        );
       }
     }
   },

@@ -26,7 +26,6 @@
       :limit="5"
       :maxHeight="205"
       :showNoResults="false"
-      @click.native="test"
     ></multiselect>
   </nav>
 </template>
