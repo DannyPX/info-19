@@ -2,7 +2,8 @@
   <div class="block">
     <div class="box">
       <div class="header">
-        <map-pin-icon class="test" v-if="location" size="1.3x"></map-pin-icon>
+        <sliders-icon v-if="general" size="1.3x"></sliders-icon>
+        <map-pin-icon v-if="location" size="1.3x"></map-pin-icon>
         <bell-icon v-if="notification" size="1.3x"></bell-icon>
         <layout-icon v-if="theme" size="1.3x"></layout-icon>
         <span>{{ title }}</span>
@@ -11,6 +12,8 @@
       <div class="slide">
         <span>{{ option }}</span>
         <toggle-button
+          v-if="!general"
+          key="button"
           :value="toggle"
           :color="{ checked: 'var(--red)', unchecked: 'var(--toggle)' }"
           :width="45"
@@ -18,24 +21,41 @@
           @click.native="vibrate"
           @change="functionName"
         />
+        <div v-else key="button" class="language">
+          <img src="/img/svg/flagEnglish.svg" />
+          <img src="/img/svg/flagDutch.svg" />
+        </div>
       </div>
       <div class="d-thin"></div>
+      <div v-if="general" class="slide" @click="showGuide">
+        <span>{{ option2 }}</span>
+        <chevron-right-icon size="1.2x"></chevron-right-icon>
+      </div>
+      <div v-if="general" class="d-thin"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { MapPinIcon, BellIcon, LayoutIcon } from "vue-feather-icons";
+import {
+  SlidersIcon,
+  ChevronRightIcon,
+  MapPinIcon,
+  BellIcon,
+  LayoutIcon
+} from "vue-feather-icons";
 import { ToggleButton } from "vue-js-toggle-button";
 
 export default {
   name: "Block",
   props: {
+    general: Boolean,
     location: Boolean,
     notification: Boolean,
     theme: Boolean,
     title: String,
     option: String,
+    option2: String,
     toggle: Boolean
   },
   methods: {
@@ -44,9 +64,14 @@ export default {
     },
     functionName() {
       this.$emit("functionName");
+    },
+    showGuide() {
+      this.$emit("showGuide");
     }
   },
   components: {
+    SlidersIcon,
+    ChevronRightIcon,
     MapPinIcon,
     BellIcon,
     LayoutIcon,
@@ -94,5 +119,13 @@ export default {
   margin: 10px 0;
   font-size: 1.05rem;
   color: var(--statText60);
+}
+
+.language {
+  margin-bottom: -5px;
+}
+
+.language img {
+  margin-right: 5px;
 }
 </style>

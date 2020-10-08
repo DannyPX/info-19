@@ -3,6 +3,13 @@
     <Topbar title="SETTINGS" :map="false" :settings="false"></Topbar>
     <Section1 :top="90">
       <Block
+        :general="true"
+        title="General"
+        option="Language"
+        option2="Quick guide"
+        @showGuide="guide = true"
+      ></Block>
+      <Block
         :location="true"
         title="Location"
         option="Automatic"
@@ -29,6 +36,7 @@
       ></Block>
       <span class="version">Version {{ version }}</span>
     </Section1>
+    <GuidePopup v-if="guide" @guideClosed="guide = false"></GuidePopup>
   </div>
 </template>
 
@@ -36,6 +44,7 @@
 import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Block from "@/components/settings/Block.vue";
+import GuidePopup from "@/components/guide/GuidePopup.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -44,7 +53,8 @@ export default {
     return {
       location: "Choose a location",
       blocked: false,
-      version: "1.1.2"
+      guide: false,
+      version: "1.0.0"
     };
   },
   methods: {
@@ -92,7 +102,8 @@ export default {
   components: {
     Topbar,
     Section1,
-    Block
+    Block,
+    GuidePopup
   }
 };
 </script>

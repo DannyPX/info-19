@@ -66,6 +66,7 @@ export default {
   height: 100%;
   align-items: center;
   backdrop-filter: blur(9px);
+  z-index: 9999;
 }
 
 #popup {

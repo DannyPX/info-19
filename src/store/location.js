@@ -65,7 +65,7 @@ export default {
           params: {
             lat: localStorage.getItem("latitude"),
             lon: localStorage.getItem("longitude"),
-            key: "409bc2c998f4f2",
+            key: "pk.28babf27576ae85170ea40b2c10a2b78",
             format: "json"
           }
         })
