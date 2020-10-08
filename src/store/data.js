@@ -1,6 +1,6 @@
 import api from "../api/index";
 import qs from "qs";
-import locales from "@/assets/data/locales/locale.js"
+import locales from "@/assets/data/locales/locale.js";
 
 export default {
   namespaced: true,
@@ -49,7 +49,7 @@ export default {
         Deceased: 0
       }
     ],
-    locale: "",
+    locale: ""
   },
   mutations: {
     LOAD_SESSION(state) {
@@ -60,9 +60,7 @@ export default {
       sessionStorage.setItem("cumulative", JSON.stringify(data));
     },
     LOAD_LOCALE(state, locale) {
-      state.locale = locales.filter(
-        (o) => o.locale == locale
-      )[0]
+      state.locale = locales.filter(o => o.locale == locale)[0];
     }
   },
   actions: {
@@ -87,7 +85,7 @@ export default {
         });
     },
     loadLocale({ commit }) {
-      commit("LOAD_LOCALE", localStorage.getItem("locale"))
+      commit("LOAD_LOCALE", localStorage.getItem("locale"));
     }
   },
   getters: {
@@ -178,7 +176,7 @@ export default {
       return arr;
     },
     locale: state => {
-      return state.locale
+      return state.locale;
     }
   }
 };
