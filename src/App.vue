@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     ...mapActions("location", ["refreshLocation"]),
+    ...mapActions("data", ["loadLocale"]),
     themeCheck() {
       if (localStorage.getItem("themeColor") == null) {
         window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -82,11 +83,18 @@ export default {
           }
         );
       }
+    },
+    setLocale() {
+      if(localStorage.getItem("locale") == null) {
+        localStorage.setItem("locale", navigator.language == "nl_NL" ? "nl" : "en")
+      }
+      this.loadLocale();
     }
   },
   beforeMount() {
     this.themeCheck();
     this.notification();
+    this.setLocale();
   }
 };
 </script>

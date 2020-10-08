@@ -1,7 +1,7 @@
 <template>
   <div id="statistics">
     <div class="header">
-      <span class="title">Statistics</span>
+      <span class="title">{{ locale.statistics }}</span>
       <span v-if="totalReported != '0'" class="date">{{ date }}</span>
     </div>
     <div v-if="totalReported != '0'" key="statistics" class="wrap">
@@ -9,25 +9,25 @@
         :info="true"
         :value="totalReported"
         :daily="dailyReported"
-        type="Reported"
+        :type="locale.reported"
       ></Infobox>
       <Infobox
         :info="true"
         :value="totalHospitalized"
         :daily="dailyHospitalized"
-        type="Hospitalized"
+        :type="locale.hospitalized"
       ></Infobox>
       <Infobox
         :info="true"
         :value="totalDeceased"
         :daily="dailyDeceased"
-        type="Deceased"
+        :type="locale.deceased"
       ></Infobox>
     </div>
     <div v-else key="statistics" class="wrap">
-      <Infobox type="Reported"></Infobox>
-      <Infobox type="Hospitalized"></Infobox>
-      <Infobox type="Deceased"></Infobox>
+      <Infobox :type="locale.reported"></Infobox>
+      <Infobox :type="locale.hospitalized"></Infobox>
+      <Infobox :type="locale.deceased"></Infobox>
     </div>
   </div>
 </template>
@@ -46,7 +46,8 @@ export default {
       "totalHospitalized",
       "dailyHospitalized",
       "totalDeceased",
-      "dailyDeceased"
+      "dailyDeceased",
+      "locale"
     ])
   },
   components: {
