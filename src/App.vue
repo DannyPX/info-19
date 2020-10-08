@@ -85,8 +85,11 @@ export default {
       }
     },
     setLocale() {
-      if(localStorage.getItem("locale") == null) {
-        localStorage.setItem("locale", navigator.language == "nl_NL" ? "nl" : "en")
+      if (localStorage.getItem("locale") == null) {
+        localStorage.setItem(
+          "locale",
+          navigator.language == "nl_NL" ? "nl" : "en"
+        );
       }
       this.loadLocale();
     }

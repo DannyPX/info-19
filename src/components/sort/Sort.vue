@@ -2,15 +2,19 @@
   <div class="sort">
     <span class="title">{{ title }}</span>
     <div class="box">
-      <span id="rep" @click="changeActive('rep')" class="active">{{ locale.reported}}</span>
-      <span id="hos" @click="changeActive('hos')">{{ locale.hospitalized }}</span>
+      <span id="rep" @click="changeActive('rep')" class="active">{{
+        locale.reported
+      }}</span>
+      <span id="hos" @click="changeActive('hos')">{{
+        locale.hospitalized
+      }}</span>
       <span id="dec" @click="changeActive('dec')">{{ locale.deceased }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "Sort",
   computed: {
