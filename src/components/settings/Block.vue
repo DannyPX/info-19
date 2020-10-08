@@ -22,8 +22,16 @@
           @change="functionName"
         />
         <div v-else key="button" class="language">
-          <img @click="changeLocale('en')" src="/img/svg/flagEnglish.svg" />
-          <img @click="changeLocale('nl')" src="/img/svg/flagDutch.svg" />
+          <img
+            @click="changeLocale('en')"
+            :class="{ active: !isActive }"
+            src="/img/svg/flagEnglish.svg"
+          />
+          <img
+            @click="changeLocale('nl')"
+            :class="{ active: isActive }"
+            src="/img/svg/flagDutch.svg"
+          />
         </div>
       </div>
       <div class="d-thin"></div>
@@ -49,6 +57,11 @@ import { mapActions } from "vuex";
 
 export default {
   name: "Block",
+  data() {
+    return {
+      isActive: localStorage.getItem("locale") == "en" ? true : false
+    };
+  },
   props: {
     general: Boolean,
     location: Boolean,
@@ -65,6 +78,7 @@ export default {
       if (localStorage.getItem("locale") != language) {
         localStorage.setItem("locale", language);
         this.loadLocale();
+        this.isActive = language == "en" ? true : false;
       }
     },
     vibrate() {
@@ -135,5 +149,10 @@ export default {
 
 .language img {
   margin-right: 5px;
+  transition: 0.4s ease-in-out;
+}
+
+.active {
+  opacity: 0.4;
 }
 </style>
