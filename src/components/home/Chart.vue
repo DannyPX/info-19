@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Sort @changeActive="changeChart" title="Graph"></Sort>
+    <Sort @changeActive="changeChart" :title="locale.graph"></Sort>
     <div class="chart-wrap">
-      <span v-if="totalReported == 0" class="loader">Loading...</span>
+      <span v-if="totalReported == 0" class="loader">{{ locale.loading }}</span>
       <Barchart
         key="chart"
         :height="210"
@@ -76,7 +76,8 @@ export default {
       "lastSixDays",
       "lastSixReports",
       "lastSixHospitalized",
-      "lastSixDeceased"
+      "lastSixDeceased",
+      "locale"
     ])
   },
   methods: {

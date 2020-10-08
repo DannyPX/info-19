@@ -1,33 +1,32 @@
 <template>
   <div>
-    <Topbar title="SETTINGS" :map="false" :settings="false"></Topbar>
+    <Topbar :title="locale.settings" :map="false" :settings="false"></Topbar>
     <Section1 :top="90">
       <Block
         :location="true"
-        title="Location"
-        option="Automatic"
+        :title="locale.location"
+        :option="locale.automatic"
         :toggle="checkLocalStorage('locationAuto', 'on')"
         @functionName="toggleAutoLocation"
       ></Block>
       <Block
         :notification="true"
-        title="Notifications"
-        option="Push notifications"
+        :title="locale.notifications"
+        :option="locale.push_notifications"
         :toggle="checkLocalStorage('notification', 'true')"
         @functionName="toggleNotification"
       ></Block>
       <span class="blocked" v-if="blocked"
-        >You have notifications blocked, please change this in your browser
-        settings.</span
+        >{{ locale.blocked_notifications }}</span
       >
       <Block
         :theme="true"
-        title="Theme"
-        option="Dark mode"
+        :title="locale.theme"
+        :option="locale.dark_mode"
         :toggle="checkLocalStorage('themeColor', 'dark-mode')"
         @functionName="toggleTheme"
       ></Block>
-      <span class="version">Version {{ version }}</span>
+      <span class="version">{{locale.version}} {{ version }}</span>
     </Section1>
   </div>
 </template>
@@ -36,15 +35,18 @@
 import Topbar from "@/components/nav/Topbar.vue";
 import Section1 from "@/components/sections/Section1.vue";
 import Block from "@/components/settings/Block.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Settings",
+  computed: {
+    ...mapGetters("data", ["locale"])
+  },
   data() {
     return {
       location: "Choose a location",
       blocked: false,
-      version: "1.1.2"
+      version: "1.1.0"
     };
   },
   methods: {

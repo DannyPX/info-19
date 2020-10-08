@@ -5,17 +5,21 @@
     <span class="info">{{ info }}</span>
     <div v-if="stats" class="stats">
       <img :src="src" />
-      <span class="info daily">Daily increase</span>
-      <span class="info daily total">Total amount</span>
-      <span class="info daily what">Info reference</span>
+      <span class="info daily">{{ locale.daily_increase }}</span>
+      <span class="info daily total">{{ locale.total_amount }}</span>
+      <span class="info daily what">{{ locale.info_reference }}</span>
     </div>
-    <div v-if="close" @click="closePopup" class="close">Close</div>
+    <div v-if="close" @click="closePopup" class="close">{{ locale.close }}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "GuideBlock",
+  computed: {
+    ...mapGetters("data", ["locale"])
+  },
   data() {
     return {
       src: "/img/svg/guideBoxL.svg"
