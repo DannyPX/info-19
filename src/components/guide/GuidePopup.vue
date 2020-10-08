@@ -2,12 +2,18 @@
   <div id="blur">
     <div id="popup">
       <GuideBlock
-        v-for="(block, index) in blocks"
-        :key="index"
-        :title="block.title"
-        :info="block.info"
-        :stats="block.stats"
-        :close="block.close"
+        :title="locale.dropdown"
+        :info="locale.dropdown_text"
+      ></GuideBlock>
+      <GuideBlock
+        :title="locale.statistics"
+        :info="locale.statistics_text"
+        :stats="true"
+      ></GuideBlock>
+      <GuideBlock
+        :title="locale.graph"
+        :info="locale.graph_text"
+        :close="true"
         @closed="guideClosed"
       ></GuideBlock>
     </div>
@@ -16,35 +22,12 @@
 
 <script>
 import GuideBlock from "@/components/guide/GuideBlock.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "GuidePopup",
-  data() {
-    return {
-      blocks: [
-        {
-          title: "Dropdown",
-          info:
-            "With the dropdown you can pick a township. The statistics and graph will refresh upon selection",
-          stats: false,
-          close: false
-        },
-        {
-          title: "Statistics",
-          info:
-            "The statistics show multiple values in 3 different boxes. See below what each value stands for.",
-          stats: true,
-          close: false
-        },
-        {
-          title: "Graph",
-          info:
-            "The graph shows the daily increases for the past 5 days and the current day. With the filter above  it you can switch what info should be shown.",
-          stats: false,
-          close: true
-        }
-      ]
-    };
+  computed: {
+    ...mapGetters("data", ["locale"])
   },
   methods: {
     guideClosed() {

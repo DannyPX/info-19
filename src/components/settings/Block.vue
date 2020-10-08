@@ -22,8 +22,8 @@
           @change="functionName"
         />
         <div v-else key="button" class="language">
-          <img src="/img/svg/flagEnglish.svg" />
-          <img src="/img/svg/flagDutch.svg" />
+          <img @click="changeLocale('en')" src="/img/svg/flagEnglish.svg" />
+          <img @click="changeLocale('nl')" src="/img/svg/flagDutch.svg" />
         </div>
       </div>
       <div class="d-thin"></div>
@@ -45,6 +45,7 @@ import {
   LayoutIcon
 } from "vue-feather-icons";
 import { ToggleButton } from "vue-js-toggle-button";
+import { mapActions } from "vuex";
 
 export default {
   name: "Block",
@@ -59,6 +60,13 @@ export default {
     toggle: Boolean
   },
   methods: {
+    ...mapActions("data", ["loadLocale"]),
+    changeLocale(language) {
+      if (localStorage.getItem("locale") != language) {
+        localStorage.setItem("locale", language);
+        this.loadLocale();
+      }
+    },
     vibrate() {
       navigator.vibrate(15);
     },

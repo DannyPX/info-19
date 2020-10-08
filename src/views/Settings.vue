@@ -4,9 +4,9 @@
     <Section1 :top="90">
       <Block
         :general="true"
-        title="General"
-        option="Language"
-        option2="Quick guide"
+        :title="locale.general"
+        :option="locale.language"
+        :option2="locale.guide"
         @showGuide="guide = true"
       ></Block>
       <Block
