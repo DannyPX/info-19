@@ -26,6 +26,8 @@ export default [
       "The graph shows the daily increases for the past 5 days and the current day. With the filter above you can switch what info should be shown.",
     blocked_notifications:
       "You have notifications blocked, please change this in your browser settings.",
+    blocked_location:
+      "You have location sharing blocked, please change this in your browser settings.",
     version: "Version",
     loading: "Loading...",
     close: "Close",
@@ -60,6 +62,8 @@ export default [
       "De grafiek laat dagelijkse toename zien voor de afgelopen 5 dagen en van vandaag. Met de filter kan je van info wisselen dat wordt weergegeven.",
     blocked_notifications:
       "De notificaties zijn geblokkeerd, verander dit in je browser instellingen.",
+    blocked_location:
+      "Locatie delen is geblokkeerd, verander dit in je browser instellingen.",
     version: "Versie",
     loading: "Laden...",
     close: "Sluiten",

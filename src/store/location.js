@@ -3,7 +3,8 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
-    municipality: "Eindhoven"
+    municipality: "Eindhoven",
+    locationBlocked: false
   },
   mutations: {},
   actions: {
@@ -22,7 +23,7 @@ export default {
         );
       });
     },
-    async toggleAutoLocation({ dispatch }) {
+    async toggleAutoLocation({ dispatch, state }) {
       let locationAuto = localStorage.getItem("locationAuto");
       let location;
 
@@ -37,8 +38,8 @@ export default {
           );
           dispatch("getLocation");
         } catch (e) {
-          window.console.log(e);
           localStorage.setItem("locationAuto", "off");
+          state.locationBlocked = true;
         }
       } else {
         localStorage.removeItem("latitude");
@@ -82,6 +83,9 @@ export default {
   getters: {
     municipality: state => {
       return state.municipality;
+    },
+    locationBlocked: state => {
+      return state.locationBlocked;
     }
   }
 };

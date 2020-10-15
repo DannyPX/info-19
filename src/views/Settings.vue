@@ -16,6 +16,9 @@
         :toggle="checkLocalStorage('locationAuto', 'on')"
         @functionName="toggleAutoLocation"
       ></Block>
+      <span class="blocked" v-if="locationBlocked">{{
+        locale.blocked_location
+      }}</span>
       <Block
         :notification="true"
         :title="locale.notifications"
@@ -23,7 +26,7 @@
         :toggle="checkLocalStorage('notification', 'true')"
         @functionName="toggleNotification"
       ></Block>
-      <span class="blocked" v-if="blocked">{{
+      <span class="blocked" v-if="notificationsBlocked">{{
         locale.blocked_notifications
       }}</span>
       <Block
@@ -49,14 +52,15 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Settings",
   computed: {
-    ...mapGetters("data", ["locale"])
+    ...mapGetters("data", ["locale"]),
+    ...mapGetters("location", ["locationBlocked"])
   },
   data() {
     return {
       location: "Choose a location",
-      blocked: false,
+      notificationsBlocked: false,
       guide: false,
-      version: "1.1.0"
+      version: "1.1.2"
     };
   },
   methods: {
@@ -80,7 +84,7 @@ export default {
             }
           });
         } else if (Notification.permission === "denied") {
-          this.blocked = true;
+          this.notificationsBlocked = true;
         }
       } else {
         localStorage.setItem("notification", "false");
