@@ -11,12 +11,15 @@ export default {
     ...mapGetters("data", [
       "dailyReported",
       "dailyHospitalized",
-      "dailyDeceased"
+      "dailyDeceased",
     ])
   },
   methods: {
     ...mapActions("location", ["refreshLocation"]),
-    ...mapActions("data", ["loadLocale"]),
+    ...mapActions("data", [
+      "loadLocale",
+      "loadGeoJson"
+      ]),
     themeCheck() {
       if (localStorage.getItem("themeColor") == null) {
         window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -98,6 +101,7 @@ export default {
     this.themeCheck();
     this.notification();
     this.setLocale();
+    this.loadGeoJson();
   }
 };
 </script>

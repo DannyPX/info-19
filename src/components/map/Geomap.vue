@@ -2,67 +2,121 @@
   <div>
     <Sort @changeActive="changeMap"></Sort>
     <div class="map-wrap">
-      <iframe
-        class="localfocusvisual"
-        frameborder="0"
-        style="width:100%;height:550px;overflow:hidden"
-        :src="src"
-      ></iframe>
+      <MglMap 
+        :accessToken="accessToken"
+        :mapStyle.sync="mapStyle"
+        @load="onMapLoaded"
+      >
+        <MglNavigationControl position="top-right"/>
+      </MglMap>
     </div>
   </div>
 </template>
 
 <script>
+//import Sort from "@/components/sort/Sort.vue";
+import Mapbox from "mapbox-gl";
+import { MglMap, MglNavigationControl } from "vue-mapbox";
+import { mapGetters } from 'vuex';
 import Sort from "@/components/sort/Sort.vue";
 
 export default {
   name: "Map",
+  components: {
+    MglMap,
+    MglNavigationControl,
+    Sort
+  },
+  computed: {
+    ...mapGetters("data", ["geojson"])
+  },
   data() {
     return {
       theme: localStorage.getItem("themeColor"),
-      src: "https://localfocuswidgets.net/5f6dd9b6f2be6"
+      accessToken: "pk.eyJ1IjoiZGFubnlweCIsImEiOiJjazBveTZqM3kwZWU5M2dudGJ6NTVmcjRlIn0.ccataXhIdh8adNK0nuEU2g",
+      mapStyle: "mapbox://styles/dannypx/ckgak5my78jw619qhnjiaip7p",
+      geoJsonSource: {
+      },
+      geoJsonLayer: {
+      },
+      geoID: "DataRIVM",
+      type: 'reported'
     };
   },
+  created() {
+    this.map = null;
+    this.mapbox = Mapbox;
+  },
   methods: {
-    switchType(id, rep, hos, dec) {
-      switch (id) {
-        case "rep":
-          this.src = rep;
-          break;
-        case "hos":
-          this.src = hos;
-          break;
-        case "dec":
-          this.src = dec;
-          break;
-      }
+    async onMapLoaded(event) {
+      this.map = event.map;
+      const asyncActions = event.component.actions
+      await asyncActions.jumpTo({
+        center: [5.280, 52.312],
+        zoom: 5.88,
+      })
+      this.map.addSource(this.geoID, this.geoJsonSource)
+      let layer = this.geoJsonLayer;
+      layer.id = "myLayer";
+      layer.source = "DataRIVM";
+      this.map.addLayer(this.geoJsonLayer);
+
+      let _this = this;
+      this.map.on('click', 'myLayer', function (e) {
+        new Mapbox.Popup()
+          .setLngLat(e.lngLat)
+          .setText(e.features[0].properties.name + " | " + _this.type + ": " + (_this.type == "reported" ? e.features[0].properties.reported : _this.type == "hospitalized" ? e.features[0].properties.hospitalized : e.features[0].properties.deceased))
+          .addTo(_this.map)
+      })
     },
     changeMap(clicked) {
-      if (this.theme == "dark-mode") {
-        this.switchType(
-          clicked.id,
-          "https://localfocuswidgets.net/5f6dd9b6f2be6",
-          "https://localfocuswidgets.net/5f6dd9dc51de6",
-          "https://localfocuswidgets.net/5f6dda059c5f3"
-        );
-      } else {
-        this.switchType(
-          clicked.id,
-          "https://localfocuswidgets.net/5f6dcfee36092",
-          "https://localfocuswidgets.net/5f6dbe6b4a836",
-          "https://localfocuswidgets.net/5f6dbe670aadb"
-        );
+      switch (clicked.id) {
+        case "rep":
+          this.type = 'reported';
+          break;
+        case "hos":
+          this.type = 'hospitalized';
+          break;
+        case "dec":
+          this.type = 'deceased';
+          break;
+      }
+      this.reloadMap();
+    },
+    reloadMap() {
+      this.map.removeLayer("myLayer");
+      this.setGeoJSON();
+      let layer = this.geoJsonLayer;
+      layer.id = "myLayer";
+      layer.source = "DataRIVM";
+      this.map.addLayer(this.geoJsonLayer);
+    },
+    setGeoJSON() {
+      this.geoJsonLayer = {
+        type: "circle",
+        paint: {
+          "circle-color": "rgb(255, 0, 0)",
+          "circle-opacity": 0.6,
+          "circle-radius": [
+            'interpolate', ['linear'], ['zoom'],
+            5, ['/', ['get', this.type], this.type == 'reported' ? 30 : 0.75],
+            20, ['/', ['get', this.type], this.type == 'reported' ? 5 : 0.1]
+          ]
+        }
       }
     }
   },
   mounted() {
+    let geojsondata = this.geojson;
     this.theme == "dark-mode"
-      ? (this.src = "https://localfocuswidgets.net/5f6dd9b6f2be6")
-      : (this.src = "https://localfocuswidgets.net/5f6dcfee36092");
+      ? (this.mapStyle = "mapbox://styles/dannypx/ckgalcdtm0gwx19nxrec9x2aj")
+      : (this.mapStyle = "mapbox://styles/dannypx/ckgak5my78jw619qhnjiaip7p");
+    this.geoJsonSource = {
+      type: 'geojson',
+      data: geojsondata
+    };
+    this.setGeoJSON();
   },
-  components: {
-    Sort
-  }
 };
 </script>
 
@@ -72,9 +126,6 @@ export default {
   height: 459px;
   margin: 0 20px;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  transform: translateZ(0px);
-  overflow: hidden;
 }
 
 .localfocusvisual {
