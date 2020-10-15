@@ -49,7 +49,8 @@ export default {
         Deceased: 0
       }
     ],
-    locale: ""
+    locale: "",
+    geojson:""
   },
   mutations: {
     LOAD_SESSION(state) {
@@ -61,6 +62,9 @@ export default {
     },
     LOAD_LOCALE(state, locale) {
       state.locale = locales.filter(o => o.locale == locale)[0];
+    },
+    SET_GEOJSON(state, json) {
+      state.geojson = json;
     }
   },
   actions: {
@@ -86,6 +90,12 @@ export default {
     },
     loadLocale({ commit }) {
       commit("LOAD_LOCALE", localStorage.getItem("locale"));
+    },
+    loadGeoJson({ commit }) {
+      api.get("/covid/geojson")
+      .then(response => {
+        commit("SET_GEOJSON", response.data);
+      })
     }
   },
   getters: {
@@ -177,6 +187,9 @@ export default {
     },
     locale: state => {
       return state.locale;
+    },
+    geojson: state => {
+      return state.geojson;
     }
   }
 };
