@@ -1,6 +1,7 @@
 import api from "../api/index";
 import qs from "qs";
 import locales from "@/assets/data/locales/locale.js";
+import citizens from "@/assets/data/citizens.json";
 
 export default {
   namespaced: true,
@@ -50,7 +51,8 @@ export default {
       }
     ],
     locale: "",
-    geojson:""
+    geojson: "",
+    citizenAmount: 0
   },
   mutations: {
     LOAD_SESSION(state) {
@@ -65,13 +67,17 @@ export default {
     },
     SET_GEOJSON(state, json) {
       state.geojson = json;
+    },
+    LOAD_CITIZENS(state, data) {
+      state.citizenAmount = data;
     }
   },
   actions: {
-    loadSession({ commit }) {
+    loadSession({ commit, dispatch }) {
+      dispatch("loadCitizens");
       commit("LOAD_SESSION");
     },
-    loadCumulative({ commit }) {
+    loadCumulative({ commit, dispatch }) {
       let data = {
         municipality: localStorage.getItem("municipality")
       };
@@ -87,15 +93,22 @@ export default {
           response.data = arr;
           commit("SET_CUMULATIVE", response.data);
         });
+      dispatch("loadCitizens");
     },
     loadLocale({ commit }) {
       commit("LOAD_LOCALE", localStorage.getItem("locale"));
     },
     loadGeoJson({ commit }) {
-      api.get("/covid/geojson")
-      .then(response => {
+      api.get("/covid/geojson").then(response => {
         commit("SET_GEOJSON", response.data);
-      })
+      });
+    },
+    loadCitizens({ commit }) {
+      let municipality = localStorage.getItem("municipality");
+      let amount = citizens.filter(
+        citizens => citizens["Regio's"] == municipality
+      );
+      commit("LOAD_CITIZENS", amount[0].aantal);
     }
   },
   getters: {
@@ -190,6 +203,17 @@ export default {
     },
     geojson: state => {
       return state.geojson;
+    },
+    percentageReported: (state, getters) => {
+      return ((getters.totalReported / state.citizenAmount) * 100).toFixed(2);
+    },
+    percentageHospitalized: (state, getters) => {
+      return ((getters.totalHospitalized / state.citizenAmount) * 100).toFixed(
+        2
+      );
+    },
+    percentageDeceased: (state, getters) => {
+      return ((getters.totalDeceased / state.citizenAmount) * 100).toFixed(2);
     }
   }
 };

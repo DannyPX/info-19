@@ -4,7 +4,7 @@
       v-if="info"
       :style="daily > 0 ? 'color: var(--red)' : 'color: var(--green)'"
       class="daily"
-      >{{ daily > 0 ? "+" + daily : "0" }}</span
+      >{{ daily > 0 ? "+" + daily : daily == -1 ? "" : 0 }}</span
     >
     <span v-if="info" class="number">{{ value }}</span>
     <span v-else class="loading">
@@ -23,7 +23,7 @@ export default {
     };
   },
   props: {
-    value: Number,
+    value: NaN,
     daily: Number,
     type: String,
     info: Boolean

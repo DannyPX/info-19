@@ -7,21 +7,24 @@
     <div v-if="totalReported != '0'" key="statistics" class="wrap">
       <Infobox
         :info="true"
-        :value="totalReported"
-        :daily="dailyReported"
+        :value="totalR ? totalReported : percentageReported + '%'"
+        :daily="totalR ? dailyReported : -1"
         :type="locale.reported"
+        @click.native="changeContent('rep')"
       ></Infobox>
       <Infobox
         :info="true"
-        :value="totalHospitalized"
-        :daily="dailyHospitalized"
+        :value="totalH ? totalHospitalized : percentageHospitalized + '%'"
+        :daily="totalH ? dailyHospitalized : -1"
         :type="locale.hospitalized"
+        @click.native="changeContent('hos')"
       ></Infobox>
       <Infobox
         :info="true"
-        :value="totalDeceased"
-        :daily="dailyDeceased"
+        :value="totalD ? totalDeceased : percentageDeceased + '%'"
+        :daily="totalD ? dailyDeceased : -1"
         :type="locale.deceased"
+        @click.native="changeContent('dec')"
       ></Infobox>
     </div>
     <div v-else key="statistics" class="wrap">
@@ -38,6 +41,13 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Statistics",
+  data() {
+    return {
+      totalR: true,
+      totalH: true,
+      totalD: true
+    };
+  },
   computed: {
     ...mapGetters("data", [
       "date",
@@ -47,8 +57,26 @@ export default {
       "dailyHospitalized",
       "totalDeceased",
       "dailyDeceased",
-      "locale"
+      "locale",
+      "percentageReported",
+      "percentageHospitalized",
+      "percentageDeceased"
     ])
+  },
+  methods: {
+    changeContent(type) {
+      switch (type) {
+        case "rep":
+          this.totalR = !this.totalR;
+          break;
+        case "hos":
+          this.totalH = !this.totalH;
+          break;
+        case "dec":
+          this.totalD = !this.totalD;
+          break;
+      }
+    }
   },
   components: {
     Infobox
