@@ -60,7 +60,7 @@ export default {
       location: "Choose a location",
       notificationsBlocked: false,
       guide: false,
-      version: "1.1.3"
+      version: "1.0"
     };
   },
   methods: {

@@ -1,0 +1,13 @@
+{
+  "appId": "nl.info19.app",
+  "appName": "Info-19",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

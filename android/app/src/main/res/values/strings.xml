@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Info-19</string>
+    <string name="title_activity_main">Info-19</string>
+    <string name="package_name">nl.info19.app</string>
+    <string name="custom_url_scheme">nl.info19.app</string>
+</resources>
